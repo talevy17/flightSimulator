@@ -1,6 +1,32 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.12)
 project(flightSimulator)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(flightSimulator main.cpp Expression.h BinaryExpression.cpp BinaryExpression.h Number.cpp Number.h Plus.cpp Plus.h Minus.cpp Minus.h Div.cpp Div.h Mult.cpp Mult.h ShuntingYard.cpp ShuntingYard.h)
+include_directories(.)
+
+add_executable(flightSimulator
+        BinaryExpression.cpp
+        BinaryExpression.h
+        Command.cpp
+        Command.h
+        Div.cpp
+        Div.h
+        Expression.h
+        FlightController.cpp
+        FlightController.h
+        Lexer.cpp
+        Lexer.h
+        main.cpp
+        Minus.cpp
+        Minus.h
+        Mult.cpp
+        Mult.h
+        Number.cpp
+        Number.h
+        openDataServer.cpp
+        openDataServer.h
+        Plus.cpp
+        Plus.h
+        ShuntingYard.cpp
+        ShuntingYard.h)
