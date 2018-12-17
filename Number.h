@@ -8,15 +8,29 @@
 #include "Expression.h"
 #include <string.h>
 
-
+/**
+ * represents the "leaf" of the recursion tree, implementing the expresion design pattern.
+ */
 class Number : public Expression {
+    //class member, a number.
     double value;
 public:
+    /**
+    * CTOR, converts string input to double.
+    * @param num string
+    */
     Number(string num);
 
+    /**
+     * calculates the expression.
+     * @return double value.
+     */
     virtual double calculate();
 
-    ~Number();
+    /**
+     * DTOR.
+     */
+    ~Number(){}
 };
 
 

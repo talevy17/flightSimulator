@@ -15,8 +15,16 @@
 
 using namespace std;
 
+/**
+ * an implementation of Dijkstra's Shunting-Yard algorithm.
+ */
 class ShuntingYard {
 public:
+    /**
+    * evaluate the input string expression, throws exception if the expression is invalid.
+    * @param expression the string expression.
+    * @return double result.
+    */
     double evaluate(string expression);
 };
 

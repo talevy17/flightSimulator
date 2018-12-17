@@ -7,11 +7,28 @@
 
 #include "BinaryExpression.h"
 
-class Plus: public BinaryExpression {
+/**
+ * binary expression, adds two expressions, as part of the design pattern.
+ */
+class Plus : public BinaryExpression {
 public:
-    Plus(Expression* leftEx, Expression* rightEx);
+    /**
+    * CTOR, sets super's left and right Expressions.
+    * @param leftEx Expression*
+    * @param rightEx Expression*
+    */
+    Plus(Expression *leftEx, Expression *rightEx);
+
+    /**
+    * adds the two expressions.
+    * @return double value.
+    */
     virtual double calculate();
-    virtual ~Plus(){}
+
+    /**
+     * DTOR.
+     */
+    virtual ~Plus() {}
 };
 
 
