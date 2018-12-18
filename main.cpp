@@ -1,6 +1,11 @@
 #include <iostream>
+#include <string.h>
+#include "ShuntingYard.h"
+using namespace std;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    string ex = "5*0.2";
+    ShuntingYard s;
+    cout <<s.evaluate(ex)<<endl;
     return 0;
 }

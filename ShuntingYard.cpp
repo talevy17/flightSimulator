@@ -26,7 +26,8 @@ Expression *extractNumber(string &expression, unsigned long int &index, long int
         index++;
     }
     //while you see digits.
-    while (index < size && expression.at(index) >= '0' && expression.at(index) <= '9') {
+    while (index < size && ((expression.at(index) >= '0' && expression.at(index) <= '9') ||
+            (expression.at(index) == '.'))) {
         number.push_back(expression.at(index));
         index++;
     }
