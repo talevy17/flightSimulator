@@ -1,41 +1,37 @@
 #include "Lexer.h"
 #include <sstream>
 #include <fstream>
-#include <bits/regex.h>
+#include <regex>
+
+//var_name
+//number
+//space
+//string ""
+
 
 void splitLine(string line, queue<string> &commandLine){
-    //int or float number,
-    regex intOrFloat ("(/d)(.)*");
-    //address
-    regex address ("((/d)(.))+(/d)");
+    //variable - String_(optional)String
+    regex var ("[A-Z][a-z]+ (_)? [A-Z][a-z]+");
+    //int or float number
+    regex intOrFloat ("(-)?(/s)*(/d)((\\.)(/d))? (/s)*");
     //the optional operators
     regex operators ("[\\+|-|\\*|/]");
-    //variable - String_(optional)String
-    regex var ("(([A-Z][a-z])+_)+([A-Z][a-z])+");
-    //optional expression
-    regex exp (intOrFloat + operators + intOrFloat);
+
     //spaces
-    regex space ("(/s)+ ,* ");
+    regex space ("[:s:]+");
     //valid input
-    regex s ("var (/s) intOrFloat ");
-    regex
+    //regex s (var "(/s)" intOrFloat);
+
+
+    //optional expression - waits for syntax
+    regex exp ("(-)?(/s)*(/d)((\\.)(/d))?(/s)* [+|-|*|/] (-)?(/s)*(/d)((\\.)(/d))?");
 
 }
-
-
-
-
-
-
-
-
-/*
-#define SPACE ' '
 
 void Lexer :: splitLine(const string line, queue<string> &commandLine){
     stringstream stream(line);
     string split;
-    while (getline(stream, split, SPACE)) {
+    while (getline(stream, split, ' ')) {
         commandLine.push(split);
     }
 }
@@ -47,6 +43,4 @@ void Lexer :: splitFile(const string fileName, queue<string> &commandLine){
     while (getline(file,line)){
         splitLine(line,commandLine);
     }
-
 }
-*/

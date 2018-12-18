@@ -26,7 +26,9 @@ void FlightController :: parser (queue<string> &commandLine){
         //match string to command
         Command* command = commandMap.at(commandLine.front());
         commandLine.pop();
-        if (command!= NULL){
+        if (command== NULL){throw "error, undefined command";}
+        else {
+
             command->execute(commandLine);
         }
     }
