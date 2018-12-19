@@ -4,9 +4,18 @@
 
 #include "Var.h"
 
-Var::Var(string varName, double val) {
+/**
+* CTOR.
+* @param varName string name
+* @param val double value
+*/
+Var::Var(string& varName, double val) {
     this->value = val;
     this->name = varName;
 }
 
+/**
+* calculates the value of the node.
+* @return double value.
+*/
 double Var::calculate() { return this->value;}
