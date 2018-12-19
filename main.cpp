@@ -4,9 +4,22 @@
 using namespace std;
 
 int main() {
-    string ex = "5*(0.2) < 1";
-    string e = "12*0.2 >) (2)";
-    ShuntingYard s;
-    cout <<s.evaluate(e)<<endl;
+    queue<string> expression;
+    expression.push("5");
+    expression.push("-");
+    expression.push("2");
+    expression.push("*");
+    expression.push("(");
+    expression.push("x");
+    expression.push("+");
+    expression.push("-");
+    expression.push("24");
+    expression.push(")");
+    Var* var = new Var("x", 2);
+    map<string, Var*> varMap;
+    varMap.insert(std::pair<string, Var*>("x", var));
+    ShuntingYard s(expression, varMap);
+    Expression* ex = s.parseExpression();
+    cout << ex->calculate() <<endl;
     return 0;
 }

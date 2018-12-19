@@ -1,8 +1,12 @@
 #include "ShuntingYard.h"
 #include <stack>
-#include <map>
 
 #define SPACE ' '
+
+ShuntingYard::ShuntingYard(queue<string>& exp, const map<string, Var*> &variables) {
+    this->vars = variables;
+    this->expressions = exp;
+}
 
 /**
  * extracts a number from the input string at the current index.
@@ -11,37 +15,31 @@
  * @param size long int expression's size
  * @return Expression* number
  */
-Expression *extractNumber(string &expression, unsigned long int &index, long int size) {
-    //save the result.
-    string number;
+Expression *extractNumber(queue<string>& expressions, map<string, Var*> vars) {
+    Expression* result;
+    string tempVal;
     //negative flag.
     bool isNeg = false;
     //if the number is negative, toggle the flag.
-    if (expression.at(index) == '-') {
+    if (expressions.front().at(0) == '-') {
         isNeg = true;
-        index++;
+        expressions.pop();
     }
-    //ignore white spaces.
-    while (expression.at(index) == SPACE) {
-        index++;
-    }
-    //while you see digits.
-    while (index < size && ((expression.at(index) >= '0' && expression.at(index) <= '9') ||
-            (expression.at(index) == '.'))) {
-        number.push_back(expression.at(index));
-        index++;
-    }
-    //avoid skipping an index in the outside loop.
-    index--;
-    //if no digits were added, the string does not represent a number.
-    if (number.empty()) {
-        throw "Invalid Expression";
+    tempVal = expressions.front();
+    try {
+        result = new Number(tempVal);
+    } catch (exception& e) {
+        try {
+            result = vars.at(tempVal);
+        } catch (exception& ex) {
+            throw "unsupported expression format";
+        }
     }
     if (isNeg) {
         //"negate" the number (0-num = -num).
-        return new Minus(new Number("0"), new Number(number));
+        return new Minus(new Number("0"), result);
     }
-    return new Number(number);
+    return result;
 }
 
 /**
@@ -113,7 +111,7 @@ void modifyExpression(stack<Expression *> &tokens, stack<char> &ops, Comparator 
  * @param expression the string input expression.
  * @return Expression* result.
  */
-Expression *parseExpression(string &expression) {
+Expression * ShuntingYard:: parseExpression() {
     //expressions stack.
     stack<Expression *> tokens;
     //operators stack.
@@ -122,17 +120,13 @@ Expression *parseExpression(string &expression) {
     bool insertedNode = false;
     //precedence map that applies the precedence laws of simple math.
     map<char, int> precedence = {{'*', 3},{'/', 3},{'+', 2},{'-', 2},{'(', -2}, {'<', 0}, {'>', 0}, {'=', 1}};
-    //the expression's size.
-    long int size = expression.size();
-    //loop's index.
-    unsigned long int i = 0;
     //scan the expression once.
-    while (i < size) {
-        char curr = expression.at(i);
+    char curr = this->expressions.front().at(0);
+    while (curr != ';') {
         switch (curr) {
             case '=':
             case '(':
-                ops.push(expression.at(i));
+                ops.push(curr);
                 break;
             case ')':
                 if (insertedNode) {
@@ -162,35 +156,24 @@ Expression *parseExpression(string &expression) {
                     //flush until there are no more operators with higher precedence in the stack.
                     modifyExpression(tokens, ops, [&ops, &precedence, &curr]() {
                         return (!ops.empty() && precedence.at(curr) <= precedence.at(ops.top()));});
-                    ops.push(expression.at(i));
+                    ops.push(curr);
                     //expect a number (or a bracket) after this.
                     insertedNode = false;
                     break;
                 } // else go straight to default and scan the next number.
             default:
                 if (!insertedNode) {
-                    tokens.push(extractNumber(expression, i, size));
+                    tokens.push(extractNumber(this->expressions, this->vars));
                     insertedNode = true;
                 } else {
                     throw "Invalid expression";
                 }
         }
-        i++;
+        this->expressions.pop();
+        curr = this->expressions.front().at(0);
     } // end of while block.
     //flush the remaining operators in the operators stack.
     modifyExpression(tokens, ops, [&ops]() { return !ops.empty(); });
     //return the parsed expression.
     return tokens.top();
-}
-
-/**
- * evaluate the input string expression, throws exception if the expression is invalid.
- * @param expression the string expression.
- * @return double result.
- */
-double ShuntingYard::evaluate(string expression) {
-    Expression *ex = parseExpression(expression);
-    double value = ex->calculate();
-    delete (ex);
-    return value;
 }

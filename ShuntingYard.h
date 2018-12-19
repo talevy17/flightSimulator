@@ -14,8 +14,10 @@
 #include "Bigger.h"
 #include "SmallerEqual.h"
 #include "BiggerEqual.h"
+#include "Var.h"
 #include "string.h"
-#include <list>
+#include <map>
+#include <queue>
 
 using namespace std;
 
@@ -23,13 +25,20 @@ using namespace std;
  * an implementation of Dijkstra's Shunting-Yard algorithm.
  */
 class ShuntingYard {
+    queue<string> expressions;
+    map<string, Var*> vars;
 public:
+    /**
+     * CTOR, use a reference from the variables map.
+     * @param variables
+     */
+    ShuntingYard(queue<string>& exp, const map<string, Var*>& variables);
     /**
     * evaluate the input string expression, throws exception if the expression is invalid.
     * @param expression the string expression.
     * @return double result.
     */
-    double evaluate(string expression);
+    Expression* parseExpression();
 };
 
 
