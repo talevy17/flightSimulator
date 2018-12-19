@@ -29,4 +29,4 @@ add_executable(flightSimulator
         Plus.cpp
         Plus.h
         ShuntingYard.cpp
-        ShuntingYard.h FlightController.h Lexer.h)
+        ShuntingYard.h FlightController.h Lexer.h Bigger.cpp Bigger.h Smaller.cpp Smaller.h BiggerEqual.cpp BiggerEqual.h SmallerEqual.cpp SmallerEqual.h)

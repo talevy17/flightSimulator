@@ -10,6 +10,10 @@
 #include "Mult.h"
 #include "Plus.h"
 #include "Number.h"
+#include "Smaller.h"
+#include "Bigger.h"
+#include "SmallerEqual.h"
+#include "BiggerEqual.h"
 #include "string.h"
 #include <list>
 
