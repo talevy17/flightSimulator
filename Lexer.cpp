@@ -2,10 +2,10 @@
 #include <algorithm>
 #include <fstream>
 #define SPACE ' '
-#define TAB '   '
 #define END_OF_ROW ";"
 
 using namespace std;
+
 
 void Lexer :: splitLine(string line, vector<string> &commandLine) {
     size_t begin = 0, end;
@@ -22,7 +22,7 @@ void Lexer :: splitLine(string line, vector<string> &commandLine) {
                 end = 1;
             }
             commandLine.push_back(line.substr(begin, end));
-            if (line.at(end) == SPACE|| line.at(end)== '\n' || line.at(end) == TAB) {
+            if (line.at(end) == SPACE|| line.at(end)== '\n') {
                 commandLine.emplace_back(",");
                 end++;
             }
