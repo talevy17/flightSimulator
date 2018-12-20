@@ -23,6 +23,24 @@ public:
     Var(string varName, double val);
 
     /**
+     * CTOR.
+     * @param varName string name
+     */
+    Var(string varName);
+
+    /**
+     * assign a value to the Var, shall be used by the assign command at run-time.
+     * @param val
+     */
+    void assignValue(double val);
+
+    /**
+     * assign a value of an Expression to the var, shall be used by the assign command.
+     * @param ex
+     */
+    void assignValue(Expression* ex);
+
+    /**
      * calculates the value of the node.
      * @return double value.
      */
