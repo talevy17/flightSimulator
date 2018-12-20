@@ -21,14 +21,13 @@ FlightController :: FlightController (string str){
  * and execute.
  * @param commandLine - reference to queue of strings that holds the commands
  */
-void FlightController :: parser (queue<string> &commandLine){
+void FlightController :: parser (vector<string> &commandLine){
     while (!commandLine.empty()){
         //match string to command
         Command* command = commandMap.at(commandLine.front());
-        commandLine.pop();
+        commandLine.pop_back();
         if (command== NULL){throw "error, undefined command";}
         else {
-
             command->execute(commandLine);
         }
     }
@@ -40,7 +39,7 @@ void FlightController :: parser (queue<string> &commandLine){
  * in order to interpret the input to command.
  */
 void FlightController :: interpreter(){
-    queue<string> commandLine;
+    vector<string> commandLine;
     Lexer lexer;
     //if file name is empty
     if (!this->fileName.compare("")){

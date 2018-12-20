@@ -1,42 +1,43 @@
 #include "Lexer.h"
-#include <sstream>
+#include <algorithm>
 #include <fstream>
-#include <regex>
+#define SPACE ' '
+#define END_OF_ROW ";"
 
-//var_name
-//number
-//space
-//string ""
+using namespace std;
 
 
-void splitLine(string line, queue<string> &commandLine){
-    //variable - String_(optional)String
-    regex var ("[A-Z][a-z]+ (_)? [A-Z][a-z]+");
-    //int or float number
-    regex intOrFloat ("(-)?(/s)*(/d)((\\.)(/d))? (/s)*");
-    //the optional operators
-    regex operators ("[\\+|-|\\*|/]");
-
-    //spaces
-    regex space ("[:s:]+");
-    //valid input
-    //regex s (var "(/s)" intOrFloat);
-
-
-    //optional expression - waits for syntax
-    regex exp ("(-)?(/s)*(/d)((\\.)(/d))?(/s)* [+|-|*|/] (-)?(/s)*(/d)((\\.)(/d))?");
-
-}
-
-void Lexer :: splitLine(const string line, queue<string> &commandLine){
-    stringstream stream(line);
-    string split;
-    while (getline(stream, split, ' ')) {
-        commandLine.push(split);
+void Lexer :: splitLine(string line, vector<string> &commandLine) {
+    size_t begin = 0, end;
+    line.push_back(' ');
+    while ((end = line.find_first_of("\", *+-<>=()/, \n")) != string::npos
+           && begin <= end ) {
+        if (line.at(end) == '\"'){
+            size_t endAdress = line.find_first_of(SPACE);
+            commandLine.push_back(line.substr(begin, endAdress));
+            line.clear();
+            break;
+        }else {
+            if (begin == end && end < line.size() && line.at(end) != SPACE) {
+                end = 1;
+            }
+            commandLine.push_back(line.substr(begin, end));
+            if (line.at(end) == SPACE|| line.at(end)== '\n') {
+                commandLine.emplace_back(",");
+                end++;
+            }
+        }
+        line = line.substr(end, line.size());
     }
+    if (line.size() > 0) {
+        commandLine.push_back(line.substr(0, line.size()));
+    }
+    commandLine.emplace_back(END_OF_ROW);
+
 }
 
-void Lexer :: splitFile(const string fileName, queue<string> &commandLine){
+
+void Lexer :: splitFile(const string fileName, vector<string> &commandLine){
     ifstream file(fileName);
     if (!file.is_open()){throw "error file not found";}
     string line;
