@@ -22,6 +22,10 @@ Var::Var(string varName) {
     this->name = varName;
 }
 
+/**
+* name getter.
+* @return string name.
+*/
 string Var::getName() const {return this->name;}
 
 /**
