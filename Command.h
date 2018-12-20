@@ -7,7 +7,7 @@ using namespace std;
 
 class Command{
 public:
-    virtual void execute(vector<string> &commandLine);
+    virtual void execute(vector<string>::iterator &commandLine)=0;
 };
 
 #endif //FLIGHTSTIMULATOR_COMMAND_H

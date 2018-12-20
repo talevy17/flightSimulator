@@ -8,7 +8,6 @@ include_directories(.)
 add_executable(flightSimulator
         BinaryExpression.cpp
         BinaryExpression.h
-        Command.cpp
         Command.h
         Div.cpp
         Div.h
