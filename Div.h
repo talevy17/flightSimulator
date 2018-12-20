@@ -20,7 +20,7 @@ public:
      * divide the expressions.
      * @return double value.
      */
-    virtual double calculate();
+    virtual double calculate() const;
 
     /**
      * virtual DTOR.

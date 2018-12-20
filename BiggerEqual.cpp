@@ -18,6 +18,6 @@ BiggerEqual::BiggerEqual(Expression *leftEx, Expression *rightEx) {
 * compare the calculated arguments.
 * @return double 1 or 0 (true or false)
 */
-double BiggerEqual::calculate() {
+double BiggerEqual::calculate() const {
     return this->getLeft()->calculate() >= this->getRight()->calculate();
 }

@@ -14,9 +14,9 @@ class FlightController {
     map<string,Var*> variablesMap;
     string fileName;
 public:
-    FlightController(string str);
+    /*FlightController(string str);
     void parser(vector<string> &commandLine);
-    void interpreter();
+    void interpreter();*/
 
 };
 

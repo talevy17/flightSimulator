@@ -23,7 +23,7 @@ public:
     * adds the two expressions.
     * @return double value.
     */
-    virtual double calculate();
+    virtual double calculate() const;
 
     /**
      * DTOR.

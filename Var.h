@@ -13,6 +13,7 @@
  */
 class Var : public Expression {
     string name;
+    string bindAddress;
     double value;
 public:
     /**
@@ -35,6 +36,18 @@ public:
     string getName() const;
 
     /**
+     * sets the binding address.
+     * @param address
+     */
+    void bind(string address);
+
+    /**
+     * bind address getter.
+     * @return
+     */
+    string getBindAddress() const;
+
+    /**
      * assign a value to the Var, shall be used by the assign command at run-time.
      * @param val
      */
@@ -50,7 +63,7 @@ public:
      * calculates the value of the node.
      * @return double value.
      */
-    double calculate();
+    double calculate() const;
 
     /**
      * DTOR.

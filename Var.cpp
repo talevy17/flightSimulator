@@ -34,6 +34,7 @@ string Var::getName() const {return this->name;}
 */
 void Var::assignValue(double val) {
     this->value = val;
+    //if bind...
 }
 
 /**
@@ -41,11 +42,23 @@ void Var::assignValue(double val) {
 * @param ex
 */
 void Var::assignValue(Expression *ex) {
-    this->value = ex->calculate();
+    assignValue(ex->calculate());
 }
+
+/**
+* bind address getter.
+* @return
+*/
+string Var::getBindAddress() const {return this->bindAddress;}
+
+/**
+* sets the binding address.
+* @param address
+*/
+void Var::bind(string address) {this->bindAddress = address;}
 
 /**
 * calculates the value of the node.
 * @return double value.
 */
-double Var::calculate() { return this->value;}
+double Var::calculate() const { return this->value;}

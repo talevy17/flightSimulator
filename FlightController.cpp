@@ -5,7 +5,7 @@
 /**
  * constructor - gets file or command line, check if its file
  */
-FlightController :: FlightController (string str){
+/*FlightController :: FlightController (string str){
     //initialize maps using the default constructor
     this->commandMap;
     this->variablesMap;
@@ -14,14 +14,14 @@ FlightController :: FlightController (string str){
     if (!file.is_open()){throw "error file not found";}
     this->fileName = fileName;
 }
-
+*/
 
 /**
  * the function gets queue of commands, match each title to the actual command
  * and execute.
  * @param commandLine - reference to queue of strings that holds the commands
  */
-void FlightController :: parser (vector<string> &commandLine){
+/*void FlightController :: parser (vector<string> &commandLine){
     while (!commandLine.empty()){
         //match string to command
         Command* command = commandMap.at(commandLine.front());
@@ -32,12 +32,13 @@ void FlightController :: parser (vector<string> &commandLine){
         }
     }
 }
-
+*/
 
 /**
  * the function create new queue and call lexer and  parser
  * in order to interpret the input to command.
  */
+ /*
 void FlightController :: interpreter(){
     vector<string> commandLine;
     Lexer lexer;
@@ -48,4 +49,4 @@ void FlightController :: interpreter(){
         lexer.splitFile(this->fileName,commandLine);
     }
     parser(commandLine);
-}
+}*/

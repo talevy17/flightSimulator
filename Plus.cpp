@@ -15,6 +15,6 @@ Plus::Plus(Expression *leftEx, Expression *rightEx) {
  * adds the two expressions.
  * @return double value.
  */
-double Plus::calculate() {
+double Plus::calculate() const {
     return this->getLeft()->calculate() + this->getRight()->calculate();
 }

@@ -18,6 +18,6 @@ Smaller::Smaller(Expression *leftEx, Expression *rightEx) {
 * compare the calculated arguments.
 * @return double 1 or 0 (true or false)
 */
-double Smaller::calculate() {
+double Smaller::calculate() const {
     return this->getLeft()->calculate() < this->getRight()->calculate();
 }

@@ -15,7 +15,7 @@ Div::Div(Expression *leftEx, Expression *rightEx) {
 * divide the expressions.
 * @return double value.
 */
-double Div::calculate() {
+double Div::calculate() const {
     double right = this->getRight()->calculate();
     if (right == 0.0) {
         throw "cannot divide by zero!";

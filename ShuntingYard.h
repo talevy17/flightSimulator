@@ -40,6 +40,13 @@ public:
     * @return double result.
     */
     Expression* parseExpression(vector<string>::iterator& it);
+
+    /**
+     * a nicer way to use Shunting Yard parser.
+    * @param it vector<string>::iterator
+    * @return Expression* result.
+    */
+    Expression* operator()(vector<string>::iterator& it);
 };
 
 

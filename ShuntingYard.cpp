@@ -174,6 +174,12 @@ Expression * ShuntingYard:: parseExpression(vector<string>::iterator& it) {
     //flush the remaining operators in the operators stack.
     modifyExpression(tokens, ops, [&ops]() { return !ops.empty(); });
     //return the parsed expression.
-    it++;
     return tokens.top();
 }
+
+/**
+ * a nicer way to use Shunting Yard parser.
+ * @param it vector<string>::iterator
+ * @return Expression* result.
+ */
+Expression* ShuntingYard::operator()(vector<string>::iterator &it) {this->parseExpression(it);}
