@@ -2,8 +2,10 @@
 #define FLIGHTSTIMULATOR_OPENDATASERVER_H
 
 
-class openDataServer {
-    
+#include "Command.h"
+
+class openDataServer : public Command{
+    virtual void execute(queue<string> &commandLine);
 };
 
 
