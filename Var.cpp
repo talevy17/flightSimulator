@@ -9,7 +9,7 @@
 * @param varName string name
 * @param val double value
 */
-Var::Var(string& varName, double val) {
+Var::Var(string varName, double val) {
     this->value = val;
     this->name = varName;
 }

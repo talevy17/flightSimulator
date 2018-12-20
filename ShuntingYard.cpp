@@ -3,9 +3,8 @@
 
 #define SPACE ' '
 
-ShuntingYard::ShuntingYard(queue<string>& exp, const map<string, Var*> &variables) {
+ShuntingYard::ShuntingYard(const map<string, Var*> &variables) {
     this->vars = variables;
-    this->expressions = exp;
 }
 
 /**
@@ -15,17 +14,17 @@ ShuntingYard::ShuntingYard(queue<string>& exp, const map<string, Var*> &variable
  * @param size long int expression's size
  * @return Expression* number
  */
-Expression *extractNumber(queue<string>& expressions, map<string, Var*> vars) {
+Expression *extractNumber(vector<string>::iterator& it, map<string, Var*> vars) {
     Expression* result;
     string tempVal;
     //negative flag.
     bool isNeg = false;
     //if the number is negative, toggle the flag.
-    if (expressions.front().at(0) == '-') {
+    if (it->at(0) == '-') {
         isNeg = true;
-        expressions.pop();
+        it++;
     }
-    tempVal = expressions.front();
+    tempVal = *it;
     try {
         result = new Number(tempVal);
     } catch (exception& e) {
@@ -111,7 +110,7 @@ void modifyExpression(stack<Expression *> &tokens, stack<char> &ops, Comparator 
  * @param expression the string input expression.
  * @return Expression* result.
  */
-Expression * ShuntingYard:: parseExpression() {
+Expression * ShuntingYard:: parseExpression(vector<string>::iterator& it) {
     //expressions stack.
     stack<Expression *> tokens;
     //operators stack.
@@ -121,8 +120,8 @@ Expression * ShuntingYard:: parseExpression() {
     //precedence map that applies the precedence laws of simple math.
     map<char, int> precedence = {{'*', 3},{'/', 3},{'+', 2},{'-', 2},{'(', -2}, {'<', 0}, {'>', 0}, {'=', 1}};
     //scan the expression once.
-    char curr = this->expressions.front().at(0);
-    while (curr != ';') {
+    char curr = it->at(0);
+    while (curr != ';' && curr != ',') {
         switch (curr) {
             case '=':
             case '(':
@@ -163,17 +162,18 @@ Expression * ShuntingYard:: parseExpression() {
                 } // else go straight to default and scan the next number.
             default:
                 if (!insertedNode) {
-                    tokens.push(extractNumber(this->expressions, this->vars));
+                    tokens.push(extractNumber(it, this->vars));
                     insertedNode = true;
                 } else {
                     throw "Invalid expression";
                 }
         }
-        this->expressions.pop();
-        curr = this->expressions.front().at(0);
+        it++;
+        curr = it->at(0);
     } // end of while block.
     //flush the remaining operators in the operators stack.
     modifyExpression(tokens, ops, [&ops]() { return !ops.empty(); });
     //return the parsed expression.
+    it++;
     return tokens.top();
 }

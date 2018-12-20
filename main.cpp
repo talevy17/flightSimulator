@@ -4,22 +4,24 @@
 using namespace std;
 
 int main() {
-    queue<string> expression;
-    expression.push("5");
-    expression.push("-");
-    expression.push("2");
-    expression.push("*");
-    expression.push("(");
-    expression.push("x");
-    expression.push("+");
-    expression.push("-");
-    expression.push("24");
-    expression.push(")");
+    vector<string> expression;
+    expression.push_back("5");
+    expression.push_back("-");
+    expression.push_back("2");
+    expression.push_back("*");
+    expression.push_back("(");
+    expression.push_back("x");
+    expression.push_back("+");
+    expression.push_back("-");
+    expression.push_back("24");
+    expression.push_back(")");
+    expression.push_back(";");
     Var* var = new Var("x", 2);
     map<string, Var*> varMap;
     varMap.insert(std::pair<string, Var*>("x", var));
-    ShuntingYard s(expression, varMap);
-    Expression* ex = s.parseExpression();
+    ShuntingYard s(varMap);
+    auto it = expression.begin();
+    Expression* ex = s.parseExpression(it);
     cout << ex->calculate() <<endl;
     return 0;
 }

@@ -20,7 +20,7 @@ public:
      * @param varName string name
      * @param val double value
      */
-    Var(string& varName, double val);
+    Var(string varName, double val);
 
     /**
      * calculates the value of the node.
