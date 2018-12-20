@@ -4,13 +4,14 @@
 #include "Command.h"
 #include <iostream>
 #include <map>
-#include <queue>
+#include <vector>
+#include "Var.h"
 
 using namespace std;
 
 class FlightController {
     map<string,Command*> commandMap;
-    map<string,double> variablesMap;
+    map<string,Var*> variablesMap;
     string fileName;
 public:
     FlightController(string str);
