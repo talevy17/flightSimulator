@@ -29,6 +29,12 @@ public:
     Var(string varName);
 
     /**
+     * name getter.
+     * @return string name.
+     */
+    string getName() const;
+
+    /**
      * assign a value to the Var, shall be used by the assign command at run-time.
      * @param val
      */

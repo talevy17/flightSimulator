@@ -22,6 +22,8 @@ Var::Var(string varName) {
     this->name = varName;
 }
 
+string Var::getName() const {return this->name;}
+
 /**
 * assign a value to the Var, shall be used by the assign command at run-time.
 * @param val
@@ -37,6 +39,7 @@ void Var::assignValue(double val) {
 void Var::assignValue(Expression *ex) {
     this->value = ex->calculate();
 }
+
 /**
 * calculates the value of the node.
 * @return double value.

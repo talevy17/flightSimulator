@@ -21,7 +21,12 @@ int main() {
     varMap.insert(std::pair<string, Var*>("x", var));
     ShuntingYard s(varMap);
     auto it = expression.begin();
-    Expression* ex = s.parseExpression(it);
-    cout << ex->calculate() <<endl;
+    Expression* ex;
+    try {
+        ex = s.parseExpression(it);
+        cout << ex->calculate() <<endl;
+    } catch (const char* e) {
+        cout<<e<<endl;
+    }
     return 0;
 }
