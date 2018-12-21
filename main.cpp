@@ -33,7 +33,8 @@ int main() {
     expression.push_back(";");
     expression.push_back("if");
     expression.push_back("x");
-    expression.push_back(">");
+    expression.push_back("=");
+    expression.push_back("=");
     expression.push_back("y");
     expression.push_back(";");
     expression.push_back("{");
@@ -45,9 +46,9 @@ int main() {
     expression.push_back(";");
     expression.push_back("}");
     expression.push_back("}");
-    Var* var = new Var("x", 2);
+    Var* var = new Var("x", 3);
     data.addVar(var);
-    var = new Var("y", 1);
+    var = new Var("y", 3);
     data.addVar(var);
     var = new Var("z", 0);
     data.addVar(var);
@@ -57,7 +58,7 @@ int main() {
         cout << "the first if var's name: " << data.getVar("tal")->getName() << ", the value is: " <<
         data.getVar("tal")->calculate() << endl;
         cout << "the var name is: " << data.getVar("karin")->getName() <<
-        ", the bind address is: " << data.getVar("karin")->calculate() << endl;
+        ", the bind address is: " << data.getVar("karin")->getBindAddress() << endl;
     } catch (const char* e) {
         cout<<e<<endl;
     }

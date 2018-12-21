@@ -15,6 +15,8 @@
 #include "SmallerEqual.h"
 #include "BiggerEqual.h"
 #include "Var.h"
+#include "NotEqual.h"
+#include "Equal.h"
 #include "string.h"
 #include <vector>
 #include <map>

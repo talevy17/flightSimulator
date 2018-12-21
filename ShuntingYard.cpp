@@ -81,6 +81,14 @@ void modifyExpression(stack<Expression *> &tokens, stack<char> &ops, Comparator 
                             ex = new BiggerEqual(tokens.top(), ex);
                             ops.pop();
                             break;
+                        case '!':
+                            ex = new NotEqual(tokens.top(), ex);
+                            ops.pop();
+                            break;
+                        case '=':
+                            ex = new Equal(tokens.top(), ex);
+                            ops.pop();
+                            break;
                         default:
                             throw "Cannot assign expressions";
                     } //end of switch
@@ -117,13 +125,13 @@ Expression * ShuntingYard:: parseExpression(vector<string>::iterator& it) {
     stack<char> ops;
     //boolean flag, to determine if the format is valid (tell between negative numbers and Minus operator).
     bool insertedNode = false;
+    bool secondEqual = false;
     //precedence map that applies the precedence laws of simple math.
-    map<char, int> precedence = {{'*', 3},{'/', 3},{'+', 2},{'-', 2},{'(', -2}, {'<', 0}, {'>', 0}, {'=', 1}};
+    map<char, int> precedence = {{'*', 3},{'/', 3},{'+', 2},{'-', 2},{'(', -2}, {'<', 0}, {'>', 0}, {'=', 1}, {'!', 0}};
     //scan the expression once.
     char curr = it->at(0);
     while (curr != ';' && curr != ',') {
         switch (curr) {
-            case '=':
             case '(':
                 ops.push(curr);
                 break;
@@ -144,8 +152,15 @@ Expression * ShuntingYard:: parseExpression(vector<string>::iterator& it) {
             case SPACE:
                 //skip spaces.
                 break;
+            case '=':
+                if (secondEqual) {
+                    ops.push(curr);
+                    break;
+                }
+            case '!':
             case '<':
             case '>':
+                secondEqual = true;
             case '+':
             case '-':
             case '*':
@@ -162,7 +177,11 @@ Expression * ShuntingYard:: parseExpression(vector<string>::iterator& it) {
                 } // else go straight to default and scan the next number.
             default:
                 if (!insertedNode) {
-                    tokens.push(extractNumber(it, this->vars));
+                    try {
+                        tokens.push(extractNumber(it, this->vars));
+                    } catch (const char* e) {
+                        throw e;
+                    }
                     insertedNode = true;
                 } else {
                     throw "Invalid expression";
@@ -182,4 +201,10 @@ Expression * ShuntingYard:: parseExpression(vector<string>::iterator& it) {
  * @param it vector<string>::iterator
  * @return Expression* result.
  */
-Expression* ShuntingYard::operator()(vector<string>::iterator &it) {this->parseExpression(it);}
+Expression* ShuntingYard::operator()(vector<string>::iterator &it) {
+    try {
+        return this->parseExpression(it);
+    } catch (const char* e) {
+        throw e;
+    }
+}

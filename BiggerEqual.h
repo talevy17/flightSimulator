@@ -8,7 +8,7 @@
 #include "BinaryExpression.h"
 
 /**
- * implements the bigger ">" operator, as part of the expression design pattern.
+ * implements the bigger-equal ">=" operator, as part of the expression design pattern.
  */
 class BiggerEqual: public BinaryExpression {
 public:
@@ -20,7 +20,7 @@ public:
     BiggerEqual(Expression *leftEx, Expression *rightEx);
 
     /**
-     * divide the expressions.
+     * check if the left expression is bigger or equal than the right.
      * @return double value.
      */
     virtual double calculate() const;
