@@ -44,4 +44,5 @@ void IfCommand::execute(vector<string>::iterator &it) {
             }
         }
     }
+    delete(condition);
 }

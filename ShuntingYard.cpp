@@ -29,7 +29,7 @@ Expression *extractNumber(vector<string>::iterator& it, map<string, Var*> vars) 
         result = new Number(tempVal);
     } catch (exception& e) {
         try {
-            result = vars.at(tempVal);
+            result = new Number(vars.at(tempVal)->calculate());
         } catch (exception& ex) {
             throw "unsupported expression format";
         }

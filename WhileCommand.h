@@ -1,0 +1,14 @@
+//
+// Created by tal on 12/21/18.
+//
+
+#ifndef FLIGHTSIMULATOR_WHILECOMMAND_H
+#define FLIGHTSIMULATOR_WHILECOMMAND_H
+
+
+class WhileCommand {
+
+};
+
+
+#endif //FLIGHTSIMULATOR_WHILECOMMAND_H

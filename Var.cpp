@@ -1,6 +1,3 @@
-//
-// Created by tal on 12/19/18.
-//
 
 #include "Var.h"
 
@@ -43,6 +40,7 @@ void Var::assignValue(double val) {
 */
 void Var::assignValue(Expression *ex) {
     assignValue(ex->calculate());
+    delete(ex);
 }
 
 /**
