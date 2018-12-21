@@ -9,6 +9,7 @@
 
 using namespace std;
 
+enum Lex    {NUMBER, VAR, STRING};
 class Lexer {
 public:
     void splitLine(string line, vector<string> &commandLine);

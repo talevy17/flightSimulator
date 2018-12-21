@@ -15,7 +15,7 @@ class FlightController {
     string fileName;
 public:
     FlightController(string str);
-    void parser(vector<string> &commandLine);
+    void parser(vector<string> :: iterator &commandLine);
     void interpreter();
 
 };

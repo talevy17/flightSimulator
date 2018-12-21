@@ -1,13 +1,16 @@
 #ifndef FLIGHTSTIMULATOR_COMMAND_H
 #define FLIGHTSTIMULATOR_COMMAND_H
 #include <iostream>
-#include <queue>
+#include <vector>
+
 
 using namespace std;
 
 class Command{
 public:
-    virtual void execute(vector<string> &commandLine);
+    virtual void execute(vector<string>::iterator &commandLine) {
+
+    }
 };
 
 #endif //FLIGHTSTIMULATOR_COMMAND_H
