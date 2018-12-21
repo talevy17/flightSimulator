@@ -1,6 +1,4 @@
-//
-// Created by tal on 12/19/18.
-//
+
 
 #ifndef FLIGHTSIMULATOR_VAR_H
 #define FLIGHTSIMULATOR_VAR_H

@@ -9,10 +9,19 @@
 #include "FlightDataVariables.h"
 
 class VarCommand : public Command {
-    FlightDataVariables* data;
+    FlightDataVariables *data;
 public:
-    VarCommand(FlightDataVariables* maps);
-    void execute(vector<string>::iterator& it);
+    /**
+     * CTOR, receives access to the data maps.
+     * @param maps
+     */
+    VarCommand(FlightDataVariables *maps);
+
+    /**
+     * execute the Var Command (implements the command design pattern).
+     * @param it
+     */
+    void execute(vector<string>::iterator &it);
 };
 
 
