@@ -8,6 +8,7 @@ using namespace std;
 class Command{
 public:
     virtual void execute(vector<string>:: iterator& it) = 0;
+    virtual  ~Command() {}
 };
 
 #endif //FLIGHTSTIMULATOR_COMMAND_H
