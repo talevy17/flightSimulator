@@ -58,6 +58,12 @@ string Var::getBindAddress() const {return this->bindAddress;}
 void Var::bind(string address) {this->bindAddress = address;}
 
 /**
+* in case of an update from the simulator, updates the value without resetting the value in the simulator.
+* @param val double value from flight data map.
+*/
+void Var::assignValueFromBindAddress(double val) {this->value = val;}
+
+/**
 * calculates the value of the node.
 * @return double value.
 */

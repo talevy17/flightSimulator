@@ -7,13 +7,14 @@ using namespace std;
 
 int main() {
     FlightDataVariables data;
+    data.flightDataInit();
     VarCommand v(&data);
     vector<string> expression;
     expression.push_back("Var");
     expression.push_back("karin");
     expression.push_back("=");
     expression.push_back("bind");
-    expression.push_back("/home/karin/CLionProjects/");
+    expression.push_back("/engines/engine/rpm");
     expression.push_back(";");
     Var* var = new Var("x", 2);
     data.addVar(var);
@@ -21,7 +22,7 @@ int main() {
     try {
         v.execute(it);
         cout << "the var name is: " << data.getVar("karin")->getName() <<
-        ", the bind address is: " << data.getVar("karin")->getBindAddress() << endl;
+        ", the bind address is: " << data.getVar("karin")->calculate() << endl;
     } catch (const char* e) {
         cout<<e<<endl;
     }

@@ -16,6 +16,12 @@ class FlightDataVariables {
     map<string, Var *> binds;
     map<string, double> flightData;
 public:
+
+    /**
+     * initialize the flight data map.
+     */
+    void flightDataInit();
+
     /**
      * symbol table getter.
      * @return map<string, Var*> symbolTable.
@@ -27,6 +33,12 @@ public:
     * @return map<string, Var*> binds
     */
     map<string, Var *> getBinds() const;
+
+    /**
+     * flight data getter.
+     * @return map<string , double> flightData.
+     */
+    map<string, double> getflightData() const;
 
     /**
      * add a new variable to the symbol table.
@@ -46,6 +58,8 @@ public:
      * @return Var* var.
      */
     Var* getVar(string varName) const;
+
+    double getValueAtAddress(string address);
 
     ~FlightDataVariables();
 };

@@ -48,16 +48,22 @@ public:
     string getBindAddress() const;
 
     /**
-     * assign a value to the Var, shall be used by the assign command at run-time.
+     * assign a value to the Var, shall be used by the var command at run-time.
      * @param val
      */
     void assignValue(double val);
 
     /**
-     * assign a value of an Expression to the var, shall be used by the assign command.
+     * assign a value of an Expression to the var, shall be used by the var command.
      * @param ex
      */
     void assignValue(Expression* ex);
+
+    /**
+     * in case of an update from the simulator, updates the value without resetting the value in the simulator.
+     * @param val double value from flight data map.
+     */
+    void assignValueFromBindAddress(double val);
 
     /**
      * calculates the value of the node.

@@ -29,8 +29,18 @@ void VarCommand::execute(vector<string>::iterator& it) {
         return;
     }
     if (*(++it) == "bind") {
-        var->bind(*(++it));
+        it++;
+        try {
+            var->bind(this->data->getVar(*it)->getBindAddress());
+        } catch (const char* e){
+            if (this->data->getflightData().find(*it) != this->data->getflightData().end()) {
+                var->bind(*it);
+            } else {
+                throw "Invalid bind address";
+            }
+        }
         this->data->addBind(var);
+        var->assignValueFromBindAddress(this->data->getValueAtAddress(var->getBindAddress()));
         ++it;
     } else {
         ShuntingYard s(this->data->getSymbolTable());
