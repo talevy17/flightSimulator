@@ -1,6 +1,3 @@
-//
-// Created by tal on 12/20/18.
-//
 
 #include "FlightDataVariables.h"
 
@@ -74,8 +71,17 @@ Var* FlightDataVariables::getVar(string varName) const {
     }
 }
 
+/**
+* flight data getter.
+* @return map<string , double> flightData.
+*/
 map<string, double> FlightDataVariables::getflightData() const {return this->flightData;}
 
+/**
+* value from the simulator getter.
+* @param address string
+* @return double value
+*/
 double FlightDataVariables::getValueAtAddress(string address) {
     try {
         return this->flightData.at(address);
@@ -84,6 +90,23 @@ double FlightDataVariables::getValueAtAddress(string address) {
     }
 }
 
+void FlightDataVariables::setFlightData(vector<double> values) {
+    int valIndex = 0;
+    for (auto it = this->flightData.begin(); it != this->flightData.end(); it++) {
+        it->second = values.at(valIndex);
+        try {
+            Var* temp = this->binds.at(it->first);
+            if (temp->calculate() != it->second) {
+                temp->assignValueFromBindAddress(it->second);
+            }
+        } catch (exception& e) { }
+        valIndex++;
+    }
+}
+
+/**
+ * DTOR, frees the allocated vars from the symbol table.
+ */
 FlightDataVariables::~FlightDataVariables() {
     auto it = this->symbolTable.begin();
     while (it != this->symbolTable.end()) {

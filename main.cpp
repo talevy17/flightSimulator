@@ -25,6 +25,7 @@ using namespace std;
 #include "IfCommand.h"
 #include "WhileCommand.h"
 #include "PrintCommand.h"
+#include "OpenDataServer.h"
 
 using namespace std;
 
@@ -45,52 +46,30 @@ int main() {
     commands.insert(std::pair<string, Command *>("while", &w));
     PrintCommand p(&data);
     commands.insert(std::pair<string, Command*>("print", &p));
+    OpenDataServer s(data);
+    commands.insert((std::pair<string, Command*>("openDataServer", &s)));
     vector<string> expression;
-    expression.push_back("if");
-    expression.push_back("z");
-    expression.push_back("<");
-    expression.push_back("y");
-    expression.push_back(";");
-    expression.push_back("{");
+    //expression.push_back("openDataServer");
+    //expression.push_back("5400");
+    //expression.push_back(",");
+    //expression.push_back("10");
+    //expression.push_back(";");
     expression.push_back("var");
     expression.push_back("tal");
     expression.push_back("=");
     expression.push_back("bind");
     expression.push_back("\"/engines/engine/rpm\"");
     expression.push_back(";");
-    expression.push_back("while");
-    expression.push_back("x");
-    expression.push_back("<");
-    expression.push_back("=");
-    expression.push_back("y");
-    expression.push_back(";");
-    expression.push_back("{");
-    expression.push_back("x");
-    expression.push_back("=");
-    expression.push_back("x");
-    expression.push_back("+");
-    expression.push_back("z");
-    expression.push_back(";");
     expression.push_back("print");
-    expression.push_back("\"iteration number:\"");
-    expression.push_back(",");
-    expression.push_back("x");
+    expression.push_back("tal");
     expression.push_back(";");
-    expression.push_back("}");
-    expression.push_back("}");
-    Var *var = new Var("x", 0);
-    data.addVar(var);
-    var = new Var("y", 3);
-    data.addVar(var);
-    var = new Var("z", 1);
-    data.addVar(var);
     auto it = expression.begin();
     try {
-        f.execute(it);
+        //s.execute(it);
+        v.execute(it);
+        p.execute(it);
         cout << "the first if var's name: " << data.getVar("tal")->getName() << ", the value is: " <<
              data.getVar("tal")->calculate() << endl;
-        cout << "the var name is: " << data.getVar("x")->getName() <<
-             ", the value is: " << data.getVar("x")->calculate() << endl;
     } catch (const char *e) {
         cout << e << endl;
     }

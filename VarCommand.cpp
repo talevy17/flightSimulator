@@ -73,4 +73,5 @@ void VarCommand::execute(vector<string>::iterator &it) {
     if (*it != ";") {
         throw "Invalid command line!";
     }
+    it++;
 }
