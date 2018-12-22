@@ -23,9 +23,10 @@ void WhileCommand::execute(vector<string>::iterator &it) {
     vector<Command *> cmds;
     vector<vector<string>::iterator> args;
     Expression *condition;
+    auto conditionIter = ++it;
     //try parsing the condition.
     try {
-        this->parseCondition(++it, condition);
+        this->parseCondition(it, condition);
     } catch (const char *e) {
         throw e;
     }
@@ -50,6 +51,10 @@ void WhileCommand::execute(vector<string>::iterator &it) {
                 throw e;
             }
         }
+        //re-parse the condition to accumulate the changes.
+        delete (condition);
+        auto tempCondition = conditionIter;
+        this->parseCondition(tempCondition, condition);
     }
     delete (condition);
 }
