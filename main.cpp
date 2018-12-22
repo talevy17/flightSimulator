@@ -18,7 +18,7 @@ int main() {
     FlightDataVariables data;
     data.flightDataInit();
     VarCommand v(&data);
-    commands.insert(std::pair<string, Command*>("Var", &v));
+    commands.insert(std::pair<string, Command*>("var", &v));
     IfCommand f(&data, &commands);
     commands.insert(std::pair<string, Command*>("if", &f));
     WhileCommand w(&data, &commands);

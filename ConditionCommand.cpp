@@ -47,7 +47,7 @@ void ConditionCommand::parseCommands(vector<string>::iterator &it,
         try {
             cmds.push_back(this->commandMap->at(*it));
         } catch (exception &e) {
-            cmds.push_back(this->commandMap->at("Var"));
+            cmds.push_back(this->commandMap->at("var"));
         }
         auto cpyIter = it;
         args.push_back(cpyIter);

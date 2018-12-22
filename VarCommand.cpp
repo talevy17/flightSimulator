@@ -20,7 +20,7 @@ VarCommand::VarCommand(FlightDataVariables* maps) {
 void VarCommand::execute(vector<string>::iterator& it) {
     Var* var;
     //check if the command was called to create a new variable.
-    if (*it == "Var") {
+    if (*it == "var") {
         var = new Var(*(++it));
         this->data->addVar(var);
         ++it;
