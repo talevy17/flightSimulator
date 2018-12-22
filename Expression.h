@@ -15,7 +15,7 @@ public:
      * evaluates an Expression.
      * @return double value.
      */
-    virtual double calculate() = 0;
+    virtual double calculate() const = 0;
 
     /**
      * virtual destructor

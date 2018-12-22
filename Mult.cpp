@@ -15,6 +15,6 @@ Mult::Mult(Expression *leftEx, Expression *rightEx) {
 * Multiply the expressions.
 * @return
 */
-double Mult::calculate() {
+double Mult::calculate() const {
     return this->getLeft()->calculate() * this->getRight()->calculate();
 }

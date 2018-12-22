@@ -15,6 +15,6 @@ Minus::Minus(Expression *leftEx, Expression *rightEx) {
 * subtract the expressions.
 * @return double value
 */
-double Minus::calculate() {
+double Minus::calculate() const {
     return this->getLeft()->calculate() - this->getRight()->calculate();
 }

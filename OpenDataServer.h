@@ -4,7 +4,7 @@
 
 #include "Command.h"
 
-class openDataServer : public Command{
+class OpenDataServer : public Command{
     virtual void execute(vector<string>::iterator &commandLine);
 };
 

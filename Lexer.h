@@ -1,7 +1,3 @@
-//
-// Created by karin on 12/13/18.
-//
-
 #ifndef FLIGHTSTIMULATOR_LEXER_H
 #define FLIGHTSTIMULATOR_LEXER_H
 #include <queue>
@@ -9,7 +5,6 @@
 
 using namespace std;
 
-enum Lex    {NUMBER, VAR, STRING};
 class Lexer {
 public:
     void splitLine(string line, vector<string> &commandLine);

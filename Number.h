@@ -22,10 +22,16 @@ public:
     Number(string num);
 
     /**
+     * CTOR, by double.
+     * @param num
+     */
+    Number(double num);
+
+    /**
      * calculates the expression.
      * @return double value.
      */
-    virtual double calculate();
+    virtual double calculate() const;
 
     /**
      * DTOR.

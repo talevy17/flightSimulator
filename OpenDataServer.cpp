@@ -1,4 +1,4 @@
-#include "openDataServer.h"
+#include "OpenDataServer.h"
 #include <iostream>
 #include <netinet/in.h>
 #include <unistd.h>
@@ -9,7 +9,7 @@
 //thread here!!!!!!
 //////////////////
 
-void openDataServer :: execute(vector<string>::iterator &commandLine){
+void OpenDataServer :: execute(vector<string>::iterator &commandLine){
 /*
     while (true) {
         int server_fd, new_socket, valread;

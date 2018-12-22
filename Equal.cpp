@@ -1,15 +1,15 @@
 //
-// Created by tal on 12/19/18.
+// Created by tal on 12/21/18.
 //
 
-#include "Smaller.h"
+#include "Equal.h"
 
 /**
 * CTOR.
 * @param leftEx Expression*
 * @param rightEx Expression*
 */
-Smaller::Smaller(Expression *leftEx, Expression *rightEx) {
+Equal::Equal(Expression *leftEx, Expression *rightEx) {
     this->setLeft(leftEx);
     this->setRight(rightEx);
 }
@@ -18,6 +18,6 @@ Smaller::Smaller(Expression *leftEx, Expression *rightEx) {
 * compare the calculated arguments.
 * @return double 1 or 0 (true or false)
 */
-double Smaller::calculate() const {
-    return this->getLeft()->calculate() < this->getRight()->calculate();
+double Equal::calculate() const {
+    return this->getLeft()->calculate() == this->getRight()->calculate();
 }

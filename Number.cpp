@@ -13,7 +13,13 @@ Number::Number(string num) {
 }
 
 /**
+* CTOR, by double.
+* @param num
+*/
+Number::Number(double num) {this->value = num;}
+
+/**
 * calculates the expression.
 * @return double value.
 */
-double Number::calculate() {return this->value;}
+double Number::calculate() const {return this->value;}

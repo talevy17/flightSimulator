@@ -27,7 +27,7 @@ bool isDigit(char c) {
 bool isLetter(char c) {
     //turn each letter to small letter.
     c = (char) tolower(c);
-    return c <= 'z' && c >='a';
+    return c <= 'z' && c >= 'a';
 }
 
 /**
@@ -95,21 +95,21 @@ stritr skipSpaces(stritr beg, stritr end) {
  * @param commandLine - vector of strings, split by variables, numbers and marks
  */
 void Lexer::splitLine(string line, vector<string> &commandLine) {
+    //,
     stritr itr = line.begin();
     stritr enditr = line.end();
-    bool var = false;
     while (itr != enditr) {
         //first, skip the unnecessary spaces
         itr = skipSpaces(itr, enditr);
         stritr curr;
         //then check the current note
         if (isDigit(*itr)) {
-            curr = findNum(itr,enditr);
-        }   else if (isLetter(*itr))    {
-            curr = findVar(itr,enditr);
-        }   else if (*itr == '"')   {
+            curr = findNum(itr, enditr);
+        } else if (isLetter(*itr)) {
+            curr = findVar(itr, enditr);
+        } else if (*itr == '"') {
             curr = findAddress(itr, enditr);
-        }   else    {
+        } else {
             curr = itr + 1;
         }
         if (itr >= curr) return;
@@ -135,8 +135,8 @@ void Lexer::splitFile(const string fileName, vector<string> &commandLine) {
     while (getline(file, line)) {
         splitLine(line, commandLine);
         //call to parser with the ready line.
-        FlightController flightController(line);
-        vector<string> :: iterator it;
+        FlightController flightController(line, false);
+        vector<string>::iterator it;
         it = commandLine.begin();
         flightController.parser(it);
     }

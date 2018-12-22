@@ -23,9 +23,9 @@ add_executable(flightSimulator
         Mult.h
         Number.cpp
         Number.h
-        openDataServer.cpp
-        openDataServer.h
+        OpenDataServer.cpp
+        OpenDataServer.h
         Plus.cpp
         Plus.h
         ShuntingYard.cpp
-        ShuntingYard.h FlightController.h Lexer.h Bigger.cpp Bigger.h Smaller.cpp Smaller.h BiggerEqual.cpp BiggerEqual.h SmallerEqual.cpp SmallerEqual.h Var.cpp Var.h)
+        ShuntingYard.h FlightController.h Lexer.h Bigger.cpp Bigger.h Smaller.cpp Smaller.h BiggerEqual.cpp BiggerEqual.h SmallerEqual.cpp SmallerEqual.h Var.cpp Var.h FlightDataVariables.cpp FlightDataVariables.h VarCommand.cpp VarCommand.h ConditionCommand.cpp ConditionCommand.h IfCommand.cpp IfCommand.h NotEqual.cpp NotEqual.h Equal.cpp Equal.h)
