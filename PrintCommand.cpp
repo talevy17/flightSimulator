@@ -30,8 +30,8 @@ void PrintCommand::execute(vector<string>::iterator &it) {
         //progress the iterator only if it's a comma (means there are more arguments).
         if (*it == ",") {
             it++;
+            cout << " ";
         }
-        cout << " ";
     }
     cout << endl;
 }
