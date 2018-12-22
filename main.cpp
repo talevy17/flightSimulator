@@ -6,8 +6,8 @@
 
 using namespace std;
 
-int main (){
-    /*
+/*int main (){
+
 }
     vector<string> commandLine;
     commandLine.push_back("hi");
@@ -18,12 +18,13 @@ int main (){
     it = commandLine.begin();
     ++it;
     string i = *it;
-=======
+=======*/
 #include "FlightDataVariables.h"
 #include <vector>
 #include "VarCommand.h"
 #include "IfCommand.h"
 #include "WhileCommand.h"
+#include "PrintCommand.h"
 
 using namespace std;
 
@@ -33,15 +34,17 @@ vector<string>::iterator checkIter(vector<string>::iterator& src) {
 }
 
 int main() {
-    map<string, Command*> commands;
+    map<string, Command *> commands;
     FlightDataVariables data;
     data.flightDataInit();
     VarCommand v(&data);
-    commands.insert(std::pair<string, Command*>("var", &v));
+    commands.insert(std::pair<string, Command *>("var", &v));
     IfCommand f(&data, &commands);
-    commands.insert(std::pair<string, Command*>("if", &f));
+    commands.insert(std::pair<string, Command *>("if", &f));
     WhileCommand w(&data, &commands);
-    commands.insert(std::pair<string, Command*>("while", &w));
+    commands.insert(std::pair<string, Command *>("while", &w));
+    PrintCommand p(&data);
+    commands.insert(std::pair<string, Command*>("print", &p));
     vector<string> expression;
     expression.push_back("if");
     expression.push_back("z");
@@ -68,9 +71,14 @@ int main() {
     expression.push_back("+");
     expression.push_back("z");
     expression.push_back(";");
+    expression.push_back("print");
+    expression.push_back("\"iteration number:\"");
+    expression.push_back(",");
+    expression.push_back("x");
+    expression.push_back(";");
     expression.push_back("}");
     expression.push_back("}");
-    Var* var = new Var("x", 0);
+    Var *var = new Var("x", 0);
     data.addVar(var);
     var = new Var("y", 3);
     data.addVar(var);
@@ -80,17 +88,10 @@ int main() {
     try {
         f.execute(it);
         cout << "the first if var's name: " << data.getVar("tal")->getName() << ", the value is: " <<
-        data.getVar("tal")->calculate() << endl;
+             data.getVar("tal")->calculate() << endl;
         cout << "the var name is: " << data.getVar("x")->getName() <<
-        ", the value is: " << data.getVar("x")->calculate() << endl;
-    } catch (const char* e) {
-        cout<<e<<endl;
+             ", the value is: " << data.getVar("x")->calculate() << endl;
+    } catch (const char *e) {
+        cout << e << endl;
     }
->>>>>>> 487e9c80e1903ab472e775a6e6c5e5c42ab523f4
-*/
-    string s = "talBatal";
-    string t = s.substr(0,s.size()-1);
-    return 0;
 }
-
-
