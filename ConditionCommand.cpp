@@ -7,7 +7,7 @@
 * @param it iterator
 * @param condition the Expression.
 */
-void ConditionCommand::parseCondition(vector<string>::iterator &it, Expression*& condition) {
+void ConditionCommand::parseCondition(vector<string>::iterator &it, Expression *&condition) {
     ShuntingYard s(this->symbolTable->getSymbolTable());
     try {
         condition = s(it);
@@ -24,13 +24,13 @@ void ConditionCommand::parseCondition(vector<string>::iterator &it, Expression*&
 * variable map setter.
 * @param variables FlightDataVariables*
 */
-void ConditionCommand::setSymbolTable(FlightDataVariables* variables) { this->symbolTable = variables; }
+void ConditionCommand::setSymbolTable(FlightDataVariables *variables) { this->symbolTable = variables; }
 
 /**
 * command map setter.
 * @param commands map<string, Command*> *
 */
-void ConditionCommand::setCommandMap(map<string, Command *>* commands) { this->commandMap = commands; }
+void ConditionCommand::setCommandMap(map<string, Command *> *commands) { this->commandMap = commands; }
 
 /**
 * parse the commands in the block for later execution.
@@ -39,15 +39,15 @@ void ConditionCommand::setCommandMap(map<string, Command *>* commands) { this->c
 * @param args a vector to push the arguments of the commands respectively.
 */
 void ConditionCommand::parseCommands(vector<string>::iterator &it,
-        vector<Command *>& cmds, vector<vector<string>::iterator>& args) {
+                                     vector<Command *> &cmds, vector<vector<string>::iterator> &args) {
     if (*it != "{") {
         throw "Invalid condition command block!";
     }
     while (*(++it) != "}") {
         try {
             cmds.push_back(this->commandMap->at(*it));
-        } catch (exception& e) {
-            throw "ran into a problem while parsing the commands in condition block";
+        } catch (exception &e) {
+            cmds.push_back(this->commandMap->at("var"));
         }
         auto cpyIter = it;
         args.push_back(cpyIter);
