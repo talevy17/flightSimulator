@@ -30,10 +30,11 @@ int main() {
     expression.push_back("y");
     expression.push_back(";");
     expression.push_back("{");
-    expression.push_back("Var");
+    expression.push_back("var");
     expression.push_back("tal");
     expression.push_back("=");
-    expression.push_back("5");
+    expression.push_back("bind");
+    expression.push_back("\"/engines/engine/rpm\"");
     expression.push_back(";");
     expression.push_back("while");
     expression.push_back("x");
