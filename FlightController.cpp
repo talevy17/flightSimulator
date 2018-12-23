@@ -12,12 +12,17 @@ FlightController::FlightController() {
     initializeCommandMap();
 }
 
+<<<<<<< HEAD
 /**
  * initialize the commands map, create new commands
  */
 
 void FlightController::initializeCommandMap() {
     this->commandMap.insert(pair<string, Command *>("openDataServer", new OpenDataServer));
+=======
+void FlightController::initialize() {
+    this->commandMap.insert(pair<string, Command *>("openDataServer", new OpenDataServer(this->flightDataVariables)));
+>>>>>>> 90277479cd3fe08e0b946eccf5cc45e6bca6e9f8
     //this->commandMap.insert(pair<string,Command*>("connect",new ConnectCommand));
     this->commandMap.insert(pair<string, Command *>("if",
                                                     new IfCommand(&this->flightDataVariables, &this->commandMap)));

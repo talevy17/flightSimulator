@@ -1,12 +1,10 @@
-//
-// Created by tal on 12/20/18.
-//
 
 #ifndef FLIGHTSIMULATOR_FLIGHTDATAVARIABLES_H
 #define FLIGHTSIMULATOR_FLIGHTDATAVARIABLES_H
 
 #include "Var.h"
 #include <map>
+#include <vector>
 
 /**
  * responsible of keeping track of the variables and binds throughout the program.
@@ -27,6 +25,12 @@ public:
      * @return map<string, Var*> symbolTable.
      */
     map<string, Var *> getSymbolTable() const;
+
+    /**
+     * sets the values of the table as read from the server.
+     * @param values
+     */
+    void setFlightData(vector<double> values);
 
     /**
     * bind map getter.
@@ -59,8 +63,16 @@ public:
      */
     Var* getVar(string varName) const;
 
+    /**
+     * value from the simulator getter.
+     * @param address string
+     * @return double value
+     */
     double getValueAtAddress(string address);
 
+    /**
+     * DTOR.
+     */
     ~FlightDataVariables();
 };
 

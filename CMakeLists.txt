@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(flightSimulator)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_FLAGS -pthread)
 
 include_directories(.)
 
@@ -28,4 +29,4 @@ add_executable(flightSimulator
         Plus.cpp
         Plus.h
         ShuntingYard.cpp
-        ShuntingYard.h FlightController.h Lexer.h Bigger.cpp Bigger.h Smaller.cpp Smaller.h BiggerEqual.cpp BiggerEqual.h SmallerEqual.cpp SmallerEqual.h Var.cpp Var.h FlightDataVariables.cpp FlightDataVariables.h VarCommand.cpp VarCommand.h ConditionCommand.cpp ConditionCommand.h IfCommand.cpp IfCommand.h NotEqual.cpp NotEqual.h Equal.cpp Equal.h WhileCommand.cpp WhileCommand.h)
+        ShuntingYard.h FlightController.h Lexer.h Bigger.cpp Bigger.h Smaller.cpp Smaller.h BiggerEqual.cpp BiggerEqual.h SmallerEqual.cpp SmallerEqual.h Var.cpp Var.h FlightDataVariables.cpp FlightDataVariables.h VarCommand.cpp VarCommand.h ConditionCommand.cpp ConditionCommand.h IfCommand.cpp IfCommand.h NotEqual.cpp NotEqual.h Equal.cpp Equal.h WhileCommand.cpp WhileCommand.h PrintCommand.cpp PrintCommand.h CommandExpression.cpp CommandExpression.h Server.cpp Server.h)
