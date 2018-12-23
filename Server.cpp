@@ -1,7 +1,8 @@
 
 #include "Server.h"
 
-#define BUF 1000
+#define BUF 2000
+pthread_mutex_t lock1 = PTHREAD_MUTEX_INITIALIZER;
 
 /**
  * CTOR.
@@ -57,6 +58,7 @@ vector<double> xmlDataSplitter(string buff) {
 
 string Server::socketReader(int sockfd) {
     while (true) {
+        pthread_mutex_lock(&lock1);
         char buffer[BUF];
         bzero(buffer, BUF);
         ssize_t n = read(sockfd, buffer, BUF - 1);
@@ -74,6 +76,7 @@ string Server::socketReader(int sockfd) {
         }
         vector<double> split_buff = xmlDataSplitter(buffer);
         this->data.setFlightData(split_buff); // update the map
+        pthread_mutex_unlock(&lock1);
     }
     return "";
 }

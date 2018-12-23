@@ -46,14 +46,14 @@ int main() {
     commands.insert(std::pair<string, Command *>("while", &w));
     PrintCommand p(&data);
     commands.insert(std::pair<string, Command*>("print", &p));
-    OpenDataServer s(data);
-    commands.insert((std::pair<string, Command*>("openDataServer", &s)));
+    OpenDataServer ser(data);
+    commands.insert((std::pair<string, Command*>("openDataServer", &ser)));
     vector<string> expression;
-    //expression.push_back("openDataServer");
-    //expression.push_back("5400");
-    //expression.push_back(",");
-    //expression.push_back("10");
-    //expression.push_back(";");
+    expression.push_back("openDataServer");
+    expression.push_back("5400");
+    expression.push_back(",");
+    expression.push_back("10");
+    expression.push_back(";");
     expression.push_back("var");
     expression.push_back("tal");
     expression.push_back("=");
@@ -65,7 +65,7 @@ int main() {
     expression.push_back(";");
     auto it = expression.begin();
     try {
-        //s.execute(it);
+        ser.execute(it);
         v.execute(it);
         p.execute(it);
         cout << "the first if var's name: " << data.getVar("tal")->getName() << ", the value is: " <<

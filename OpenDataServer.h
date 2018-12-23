@@ -10,8 +10,6 @@
 #include <pthread.h>
 
 class OpenDataServer : public Command{
-    FlightDataVariables& data;
-
 public:
     typedef struct {
         int port;
@@ -19,7 +17,10 @@ public:
         Server* ser;
         int sockfd;
     } socketParameters;
-
+private:
+    FlightDataVariables& data;
+    socketParameters params;
+public:
     OpenDataServer(FlightDataVariables& dataMaps);
 
     virtual void execute(vector<string>::iterator &it);
