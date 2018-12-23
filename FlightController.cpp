@@ -3,30 +3,26 @@
 #include "Lexer.h"
 #include "OpenDataServer.h"
 
-#define ASSIGN_COMMAND "="
-
 /**
  * constructor - gets file or command line, check if its file
  */
-FlightController::FlightController(string str, bool isFile) {
+
+FlightController::FlightController() {
     this->flightDataVariables.flightDataInit();
-    this->input = str;
-    this->isFile = isFile;
-    //check if the file exist
-    if (isFile) {
-        ifstream file(str);
-        if (!file.is_open()) { throw "error file not found"; }
-    }
-    initialize();
+    initializeCommandMap();
 }
 
-void FlightController::initialize() {
+/**
+ * initialize the commands map, create new commands
+ */
+
+void FlightController::initializeCommandMap() {
     this->commandMap.insert(pair<string, Command *>("openDataServer", new OpenDataServer));
     //this->commandMap.insert(pair<string,Command*>("connect",new ConnectCommand));
     this->commandMap.insert(pair<string, Command *>("if",
                                                     new IfCommand(&this->flightDataVariables, &this->commandMap)));
-    //this->commandMap.insert(pair<string,Command*>("while",
-    //        new WhileCommand(&this->flightDataVariables,&this->commandMap)));
+    this->commandMap.insert(pair<string, Command *>("while",
+                                                    new WhileCommand(&this->flightDataVariables, &this->commandMap)));
     //this->commandMap.insert(pair<string,Command*>("print",new PrintCommand));
     this->commandMap.insert(pair<string, Command *>("var",
                                                     new VarCommand(&this->flightDataVariables)));
@@ -35,41 +31,74 @@ void FlightController::initialize() {
 
 
 /**
- * the function gets queue of commands, match each title to the actual command
- * and execute.
- * @param commandLine - reference to queue of strings that holds the commands
+ * the function gets the file ifstream and read untill the end of condition
+ * @param file - the input file.
+ * @param commandLine - vector of strings that hold commands
+ * @param lexer
  */
 
-void FlightController::parser(vector<string>::iterator &commandLine) {
-    char i = commandLine->at(0);
-    char end = commandLine->at(commandLine->size());
-    while (i != end) {
-        Command *command = commandMap.at(*commandLine);
-        if (command == nullptr) {
-            try { flightDataVariables.getVar(*commandLine); }
-            catch (const char *exception) { throw "error, undefined command"; }
-        } else {
-            command->execute(commandLine);
-        }
-        ++i;
+void readCondition(ifstream *file, vector<string> &commandLine, Lexer lexer) {
+    string line;
+    bool endOfCondition = false;
+    while (!endOfCondition) {
+        if (line.find('}')) { endOfCondition = true; }
+        lexer.splitLine(line, commandLine);
+        //check
+        getline(*file, line);
     }
 }
 
 /**
- * the function create new queue and call lexer and  parser
- * in order to interpret the input to command.
+ * the function gets input string  - line of command or file name.
+ * if its a file - read each line and call lexer and parser,
+ * if its a line - call lexer and parser.
+ * @param input - string : file name or line of command
+ * @param isFile - true - if the input is file, false - else
  */
 
-
-void FlightController::interpreter() {
+void FlightController::controller(string input, bool isFile) {
     vector<string> commandLine;
     Lexer lexer;
-    if (this->isFile){
-        lexer.splitFile(this->input, commandLine);
+    if (isFile) {
+        ifstream file(input);
+        if (!file.is_open()) { throw "error file not found"; }
+        string line;
+        while (getline(file, line)) {
+            // if there is an condition - read till the end of the condition
+            if (line.find('{')) {
+                lexer.splitLine(line, commandLine);
+                readCondition(&file, commandLine, lexer);
+            } else {
+                lexer.splitLine(line, commandLine);
+            }
+            parser(commandLine);
+        }
     } else {
-        lexer.splitLine(this->input,commandLine);
+        lexer.splitLine(input, commandLine);
+        parser(commandLine);
     }
+}
+
+/**
+ * the function gets vector of commands, match each title to the actual command
+ * and execute.
+ * @param commandLine - reference to queue of strings that holds the commands
+ */
+
+void FlightController::parser(vector<string> &commandLine) {
     vector<string>::iterator commandIt;
     commandIt = commandLine.begin();
-    parser(commandIt);
+    while (commandIt != commandLine.end()) {
+        //check if the current index in the commandLine is command
+        Command *command = commandMap.at(*commandIt);
+        //if its not command- check if its variable.
+        if (command == nullptr) {
+            //check if the current index in the commandLine is variable
+            try { flightDataVariables.getVar(*commandIt); }
+            catch (const char *exception) { throw "error, undefined command"; }
+        } else {
+            command->execute(commandIt);
+        }
+        ++commandIt;
+    }
 }

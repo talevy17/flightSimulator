@@ -1,96 +1,51 @@
 #include <iostream>
 #include <string.h>
 #include <vector>
+#include <algorithm>
 #include "ShuntingYard.h"
 #include "Lexer.h"
+#include "FlightController.h"
 
 using namespace std;
+typedef string :: iterator stritr;
+
+bool isD(char c) {
+    return c <= '9' && c >= '0';
+}
+
+stritr findit(stritr beg, stritr end, char toFind) {
+    find_if(beg + 1, end, [toFind](char c) { return c == toFind; }) + 1;
+}
+
+stritr findn(stritr beg, stritr end) {
+    return find_if_not(beg, end, isD);
+}
+
+stritr findE (stritr beg, stritr end){
+    bool found = false;
+    stritr i,j;
+    while (!found){
+        i = findn(beg,end);
+        j = findit(i,end,'.');
+        if (*j == *end ){
+            found = true;
+            j = i;
+        }
+        beg = j;
+    }
+    return j;
+}
 
 int main (){
-    /*
-}
-    vector<string> commandLine;
-    commandLine.push_back("hi");
-    commandLine.push_back("hello");
-    commandLine.push_back("sh");
-    vector<string> :: iterator it;
-    string::iterator co;
-    it = commandLine.begin();
-    ++it;
-    string i = *it;
-=======
-#include "FlightDataVariables.h"
-#include <vector>
-#include "VarCommand.h"
-#include "IfCommand.h"
-#include "WhileCommand.h"
-
-using namespace std;
-
-vector<string>::iterator checkIter(vector<string>::iterator& src) {
-    auto cpyIter = src;
-    return cpyIter;
-}
-
-int main() {
-    map<string, Command*> commands;
-    FlightDataVariables data;
-    data.flightDataInit();
-    VarCommand v(&data);
-    commands.insert(std::pair<string, Command*>("var", &v));
-    IfCommand f(&data, &commands);
-    commands.insert(std::pair<string, Command*>("if", &f));
-    WhileCommand w(&data, &commands);
-    commands.insert(std::pair<string, Command*>("while", &w));
-    vector<string> expression;
-    expression.push_back("if");
-    expression.push_back("z");
-    expression.push_back("<");
-    expression.push_back("y");
-    expression.push_back(";");
-    expression.push_back("{");
-    expression.push_back("var");
-    expression.push_back("tal");
-    expression.push_back("=");
-    expression.push_back("bind");
-    expression.push_back("\"/engines/engine/rpm\"");
-    expression.push_back(";");
-    expression.push_back("while");
-    expression.push_back("x");
-    expression.push_back("<");
-    expression.push_back("=");
-    expression.push_back("y");
-    expression.push_back(";");
-    expression.push_back("{");
-    expression.push_back("x");
-    expression.push_back("=");
-    expression.push_back("x");
-    expression.push_back("+");
-    expression.push_back("z");
-    expression.push_back(";");
-    expression.push_back("}");
-    expression.push_back("}");
-    Var* var = new Var("x", 0);
-    data.addVar(var);
-    var = new Var("y", 3);
-    data.addVar(var);
-    var = new Var("z", 1);
-    data.addVar(var);
-    auto it = expression.begin();
-    try {
-        f.execute(it);
-        cout << "the first if var's name: " << data.getVar("tal")->getName() << ", the value is: " <<
-        data.getVar("tal")->calculate() << endl;
-        cout << "the var name is: " << data.getVar("x")->getName() <<
-        ", the value is: " << data.getVar("x")->calculate() << endl;
-    } catch (const char* e) {
-        cout<<e<<endl;
+    vector<string> c;
+    Lexer l;
+    string s = "3.454.545 , 6";
+    stritr b = s.begin();
+    stritr e = s.end();
+    stritr f = findE(b,e);
+    string d = string (b,f);
+    if ((*f!=*e)){
+        cout << "fail" << endl;
     }
->>>>>>> 487e9c80e1903ab472e775a6e6c5e5c42ab523f4
-*/
-    string s = "talBatal";
-    string t = s.substr(0,s.size()-1);
     return 0;
 }
-
-

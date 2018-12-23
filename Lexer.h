@@ -8,7 +8,6 @@ using namespace std;
 class Lexer {
 public:
     void splitLine(string line, vector<string> &commandLine);
-    void splitFile(string fileName, vector<string> &commandLine);
 };
 
 
