@@ -6,6 +6,8 @@
 #define SPACE ' '
 #define TAB '\t'
 #define END_OF_ROW ";"
+//end of parameter
+#define END_OF_PRM ","
 
 using namespace std;
 typedef string::iterator stritr;
@@ -54,12 +56,12 @@ stritr findNum(stritr beg, stritr end) {
 /**
  * the function gets 2 iterators , for begin and end
  * and find the quotation mark - that represent the end of the address
- * @param beg - iterator to begin
+ * @param beg - iterator to beginc
  * @param end - iterator to end
  * @return stritr - the end of the address.
  */
-stritr findAddress(stritr beg, stritr end) {
-    return find_if(beg + 1, end, [](char c) { return c == '"'; }) + 1;
+stritr findAddress(stritr beg, stritr end, char toFind) {
+    find_if(beg + 1, end, [toFind](char c) { return c == toFind; }) + 1;
 }
 
 /**
@@ -88,6 +90,20 @@ stritr skipSpaces(stritr beg, stritr end) {
     });
 }
 
+stritr findEndFloat (stritr beg, stritr end){
+    bool found = false;
+    stritr i,j;
+    while (!found){
+        i = findNum(beg,end);
+        j = findAddress(i,end,'.');
+        if (*j == *end ){
+            found = true;
+            j = i;
+        }
+    }
+    return j;
+}
+
 /**
  * the function gets command and vector of strings,
  * iter the line and split each relevant parameter
@@ -95,7 +111,8 @@ stritr skipSpaces(stritr beg, stritr end) {
  * @param commandLine - vector of strings, split by variables, numbers and marks
  */
 void Lexer::splitLine(string line, vector<string> &commandLine) {
-    //,
+    //booleans flags for add comma between parameters.
+    bool separateVar = false, var = false, f = false;
     stritr itr = line.begin();
     stritr enditr = line.end();
     while (itr != enditr) {
@@ -105,39 +122,43 @@ void Lexer::splitLine(string line, vector<string> &commandLine) {
         //then check the current note
         if (isDigit(*itr)) {
             curr = findNum(itr, enditr);
+            stritr dot = findAddress(itr, enditr, '.');
+            if (*dot != *enditr) {
+                curr = findEndFloat(dot,enditr);
+            }
+            if (var) { f = true; }
+            var = true;
         } else if (isLetter(*itr)) {
             curr = findVar(itr, enditr);
+            if (var) { f = true; }
+            var = true;
+            string mode = string(itr, curr);
+            //if the command get multiply parameters change the separateVar flag.
+            if (mode == "openDataServer" || mode == "connect" || mode == "print") {
+                separateVar = true;
+                var = false;
+            }
         } else if (*itr == '"') {
-            curr = findAddress(itr, enditr);
+            curr = findAddress(itr, enditr, '"');
         } else {
             curr = itr + 1;
+            var = false;
         }
         if (itr >= curr) return;
+        if (f && separateVar) {
+            commandLine.emplace_back(END_OF_PRM);
+            f = false;
+        }
         //push the substring to the vector
         commandLine.emplace_back(string(itr, curr));
+        //push ',' to represent end of parameter
         //raise itr
         itr = curr;
     }
-    //at the end of line.
-    commandLine.emplace_back(END_OF_ROW);
-}
-
-/**
- * the function  gets file, and start reading from it,
- * split and parse line by line.
- * @param fileName - file of commands
- * @param commandLine vector of strings, split by variables, numbers and marks
- */
-void Lexer::splitFile(const string fileName, vector<string> &commandLine) {
-    ifstream file(fileName);
-    if (!file.is_open()) { throw "error file not found"; }
-    string line;
-    while (getline(file, line)) {
-        splitLine(line, commandLine);
-        //call to parser with the ready line.
-        FlightController flightController(line, false);
-        vector<string>::iterator it;
-        it = commandLine.begin();
-        flightController.parser(it);
+    //if the last string in the vector is "," - pop it.
+    if (commandLine.back() == END_OF_PRM) {
+        commandLine.pop_back();
     }
+    //add ";" in the end of line command.
+    commandLine.emplace_back(END_OF_ROW);
 }

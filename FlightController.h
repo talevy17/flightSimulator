@@ -10,7 +10,7 @@
 #include "VarCommand.h"
 #include "OpenDataServer.h"
 #include "IfCommand.h"
-//#include "WhileCommand.h"
+#include "WhileCommand.h"
 //#include "ConnectCommand.h"
 //#include "PrintCommand.h"
 
@@ -23,13 +23,13 @@ class FlightController {
     bool isFile;
 
 public:
-    FlightController(string str, bool isFile);
+    FlightController();
 
-    void initialize();
+    void controller(string input, bool isFile);
 
-    void parser(vector<string>::iterator &commandLine);
+    void initializeCommandMap();
 
-    void interpreter();
+    void parser(vector<string> &commandLine);
 
     ~FlightController() {
 
