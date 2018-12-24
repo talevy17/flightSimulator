@@ -11,7 +11,7 @@
 
 using namespace std;
 
-/*
+
 int main (int argc, char* argv[]) {
     FlightController fc;
     try {
@@ -22,7 +22,7 @@ int main (int argc, char* argv[]) {
     }
     return 0;
 }
-*/
+/*
 int main() {
     map<string, Command *> commands;
     FlightDataVariables data;
@@ -66,4 +66,4 @@ int main() {
     }
     server.closeServer();
 }
-
+*/
