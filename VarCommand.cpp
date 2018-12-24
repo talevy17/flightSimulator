@@ -49,12 +49,7 @@ void VarCommand::execute(vector<string>::iterator &it) {
             string address = (*it).substr(1, (*it).size() - 2);
             var->bind(address);
         } else {
-            try {
-                //check if the binding was to a variable.
-                var->bind(this->data->getVar(*it)->getBindAddress());
-            } catch (const char *e) {
-                throw e;
-            }
+            var->bind(*it);
         }
         //add the bind and assign the current value from the simulator.
         this->data->addBind(var);
