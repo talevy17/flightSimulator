@@ -92,6 +92,7 @@ stritr skipSpaces(stritr beg, stritr end) {
 
 stritr findEndFloat (stritr beg, stritr end){
     bool found = false;
+    if (!isDigit(*beg)) { return beg;}
     stritr i,j;
     while (!found){
         i = findNum(beg,end);
@@ -115,16 +116,15 @@ void Lexer::splitLine(string line, vector<string> &commandLine) {
     bool separateVar = false, var = false, f = false;
     stritr itr = line.begin();
     stritr enditr = line.end();
-    while (itr != enditr) {
+    while (*itr != *enditr) {
         //first, skip the unnecessary spaces
         itr = skipSpaces(itr, enditr);
         stritr curr;
         //then check the current note
         if (isDigit(*itr)) {
             curr = findNum(itr, enditr);
-            stritr dot = findAddress(itr, enditr, '.');
-            if (*dot != *enditr) {
-                curr = findEndFloat(dot,enditr);
+            if ((itr < enditr+1) && (*(itr + 1) == '.')){
+                curr = findEndFloat(itr+1,enditr);
             }
             if (var) { f = true; }
             var = true;
@@ -151,9 +151,13 @@ void Lexer::splitLine(string line, vector<string> &commandLine) {
         }
         //push the substring to the vector
         commandLine.emplace_back(string(itr, curr));
-        //push ',' to represent end of parameter
         //raise itr
         itr = curr;
+    }
+    if (commandLine.back() == "{"){
+        commandLine.pop_back();
+        commandLine.emplace_back(END_OF_ROW);
+        commandLine.emplace_back("{");
     }
     //if the last string in the vector is "," - pop it.
     if (commandLine.back() == END_OF_PRM) {
