@@ -1,9 +1,0 @@
-var x_3 = 2
-var v = 0
-while x < 5 {
-if v < 9 {
-v++
-}
-x++
-}
-var y =9

@@ -45,7 +45,6 @@ void VarCommand::execute(vector<string>::iterator &it) {
     }
     //distinguish between binding and assigning a value.
     if (*(++it) == "bind") {
-        //////////////////////////////////
         if ((*(++it)).at(0) == '"') {
                 string address = (*it).substr(1, (*it).size() - 2);
                 var->bind(address);
