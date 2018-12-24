@@ -50,6 +50,7 @@ void VarCommand::execute(vector<string>::iterator &it) {
             var->bind(address);
         } else {
             var->bind(*it);
+<<<<<<< HEAD
                 string address = (*it).substr(1, (*it).size() - 2);
                 var->bind(address);
             } else {
@@ -60,6 +61,8 @@ void VarCommand::execute(vector<string>::iterator &it) {
                 throw e;
             }
 >>>>>>> 04b96b14c2934b43b74729753535692d1f64ecfe
+=======
+>>>>>>> 7aa12f22657c11f131a88ce1c506ddb66c9bb982
         }
         //add the bind and assign the current value from the simulator.
         this->data->addBind(var);
