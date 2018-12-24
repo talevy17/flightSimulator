@@ -9,17 +9,24 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include "strings.h"
+#include <mutex>
 
 class Server {
     FlightDataVariables &data;
+    mutex &_mutex;
     int port;
     int hz;
+    bool isRunning;
+    int sockfd;
+    int newsockfd;
 public:
-    Server(FlightDataVariables &varsData);
+    Server(mutex &m, FlightDataVariables &varsData);
 
-    int openServer(int port, int hz);
+    void openServer(int port, int hz);
 
-    string socketReader(int sockfd);
+    string socketReader();
+
+    void closeServer();
 
 };
 

@@ -6,22 +6,12 @@
 #include <thread>
 #include <iostream>
 #include <string>
-#include "pthread.h"
-#include <pthread.h>
 
 class OpenDataServer : public Command{
-public:
-    typedef struct {
-        int port;
-        int hz;
-        Server* ser;
-        int sockfd;
-    } socketParameters;
-private:
     FlightDataVariables& data;
-    socketParameters params;
+    Server& server;
 public:
-    OpenDataServer(FlightDataVariables& dataMaps);
+    OpenDataServer(Server& ser, FlightDataVariables& dataMaps);
 
     virtual void execute(vector<string>::iterator &it);
 };

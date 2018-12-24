@@ -1,33 +1,19 @@
 #include "OpenDataServer.h"
 #include "ShuntingYard.h"
 
-pthread_mutex_t lock2 = PTHREAD_MUTEX_INITIALIZER;
+OpenDataServer::OpenDataServer(Server& ser, FlightDataVariables& dataMaps) :server(ser), data(dataMaps) {}
 
-OpenDataServer::OpenDataServer(FlightDataVariables& dataMaps) : data(dataMaps) {}
-
-void* socketRead(void* pVoid) {
-    auto* params = (OpenDataServer::socketParameters*) pVoid;
+void socketRead(Server* server) {
     while (true) {
-        pthread_mutex_lock(&lock2);
-        auto x = params->ser->socketReader(params->sockfd);
+        auto x = server->socketReader();
         if (x == "exit") {
             break;
         }
-        pthread_mutex_unlock(&lock2);
     }
-    return nullptr;
 }
-
-void StartThread(OpenDataServer:: socketParameters* params) {
-    pthread_t trid;
-    params->sockfd = params->ser->openServer(params->port, params->hz);
-    pthread_create(&trid, nullptr, socketRead, params);
-}
-
 
 void OpenDataServer::execute(vector<string>::iterator &it) {
     ShuntingYard s(this->data.getSymbolTable());
-    Server server(this->data);
     double port, time;
     //try parsing the variables.
     try {
@@ -45,9 +31,8 @@ void OpenDataServer::execute(vector<string>::iterator &it) {
         __throw_runtime_error("invalid (neg) params to OpenDataServer");
     }
     // initialize the parameter struct for the socket.
-    this->params.port = (int) port;
-    this->params.hz = (int) time;
-    this->params.ser = &(server);
     it++;
-    StartThread(&this->params); // open new thread
+    this->server.openServer((int) port, (int) time);
+    thread ser(socketRead, &this->server);
+    ser.join();
 }
