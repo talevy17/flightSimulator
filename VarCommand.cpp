@@ -46,6 +46,12 @@ void VarCommand::execute(vector<string>::iterator &it) {
     //distinguish between binding and assigning a value.
     if (*(++it) == "bind") {
         if ((*(++it)).at(0) == '"') {
+<<<<<<< HEAD
+            string address = (*it).substr(1, (*it).size() - 2);
+            var->bind(address);
+        } else {
+            var->bind(*it);
+=======
                 string address = (*it).substr(1, (*it).size() - 2);
                 var->bind(address);
             } else {
@@ -55,6 +61,7 @@ void VarCommand::execute(vector<string>::iterator &it) {
             } catch (const char *e) {
                 throw e;
             }
+>>>>>>> 04b96b14c2934b43b74729753535692d1f64ecfe
         }
         //add the bind and assign the current value from the simulator.
         this->data->addBind(var);

@@ -43,6 +43,9 @@ void ConditionCommand::parseCommands(vector<string>::iterator &it,
     if (*it != "{") {
         throw "Invalid condition command block!";
     }
+    if (*(it + 1) == ";") {
+        it++;
+    }
     while (*(++it) != "}") {
         try {
             cmds.push_back(this->commandMap->at(*it));
