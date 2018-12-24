@@ -1,0 +1,11 @@
+var rudder = 2
+var h0 = 22
+var heading =2
+var aileron = 8
+var alt = 6
+while alt<1000{
+rudder = (h0 –heading)/20
+aileron = -roll / 70
+elevator = pitch / 50
+print alt
+}

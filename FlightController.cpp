@@ -2,7 +2,8 @@
 #include "FlightController.h"
 #include "Lexer.h"
 #include "OpenDataServer.h"
-
+#define NOT_FOUND -1
+typedef vector<string> :: iterator vecitr;
 /**
  * constructor - gets file or command line, check if its file
  */
@@ -12,17 +13,13 @@ FlightController::FlightController() {
     initializeCommandMap();
 }
 
-<<<<<<< HEAD
 /**
  * initialize the commands map, create new commands
  */
 
 void FlightController::initializeCommandMap() {
-    this->commandMap.insert(pair<string, Command *>("openDataServer", new OpenDataServer));
-=======
-void FlightController::initialize() {
-    this->commandMap.insert(pair<string, Command *>("openDataServer", new OpenDataServer(this->flightDataVariables)));
->>>>>>> 90277479cd3fe08e0b946eccf5cc45e6bca6e9f8
+    this->commandMap.insert(pair<string, Command *>("openDataServer",
+                                                    new OpenDataServer(this->flightDataVariables)));
     //this->commandMap.insert(pair<string,Command*>("connect",new ConnectCommand));
     this->commandMap.insert(pair<string, Command *>("if",
                                                     new IfCommand(&this->flightDataVariables, &this->commandMap)));
@@ -42,14 +39,18 @@ void FlightController::initialize() {
  * @param lexer
  */
 
-void readCondition(ifstream *file, vector<string> &commandLine, Lexer lexer) {
+void readCondition(ifstream &file, vector<string> &commandLine, Lexer lexer) {
+    int numOfConditions = 1;
     string line;
-    bool endOfCondition = false;
-    while (!endOfCondition) {
-        if (line.find('}')) { endOfCondition = true; }
+    while (numOfConditions>0) {
+        getline(file, line);
+        if (line==""){
+            getline(file, line);
+            continue;
+        } else if (line.find('{')!=NOT_FOUND){
+            numOfConditions ++;
+        } else if (line.find('}') != NOT_FOUND) { numOfConditions --; }
         lexer.splitLine(line, commandLine);
-        //check
-        getline(*file, line);
     }
 }
 
@@ -69,14 +70,16 @@ void FlightController::controller(string input, bool isFile) {
         if (!file.is_open()) { throw "error file not found"; }
         string line;
         while (getline(file, line)) {
+            if (line == ""){ continue;}
             // if there is an condition - read till the end of the condition
-            if (line.find('{')) {
+            if (line.find('{')!= NOT_FOUND) {
                 lexer.splitLine(line, commandLine);
-                readCondition(&file, commandLine, lexer);
+                readCondition(file, commandLine, lexer);
             } else {
                 lexer.splitLine(line, commandLine);
             }
             parser(commandLine);
+            commandLine.clear();
         }
     } else {
         lexer.splitLine(input, commandLine);
@@ -91,19 +94,19 @@ void FlightController::controller(string input, bool isFile) {
  */
 
 void FlightController::parser(vector<string> &commandLine) {
-    vector<string>::iterator commandIt;
-    commandIt = commandLine.begin();
-    while (commandIt != commandLine.end()) {
+    vecitr commandIt;
+    for (commandIt = commandLine.begin(); commandIt < commandLine.end(); ++commandIt) {
         //check if the current index in the commandLine is command
-        Command *command = commandMap.at(*commandIt);
-        //if its not command- check if its variable.
-        if (command == nullptr) {
-            //check if the current index in the commandLine is variable
-            try { flightDataVariables.getVar(*commandIt); }
-            catch (const char *exception) { throw "error, undefined command"; }
-        } else {
+        Command *command;
+        try {
+            command = commandMap.at(*commandIt);
             command->execute(commandIt);
+        } catch (const exception& er) {
+            try {
+                flightDataVariables.getVar(*commandIt);
+                commandMap.at("var")->execute(commandIt);
+            }
+            catch (const char *exception) { throw "error, undefined command"; }
         }
-        ++commandIt;
     }
 }
