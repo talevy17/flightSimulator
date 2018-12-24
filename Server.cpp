@@ -1,52 +1,59 @@
 
+#include <cstring>
 #include "Server.h"
 
-#define BUF 1000
+#define BUF 2000
 
 /**
  * CTOR.
  * @param varsData
  */
-Server::Server(FlightDataVariables &varsData) : data(varsData) {}
+Server::Server(mutex& m, FlightDataVariables &varsData) : _mutex(m), data(varsData) {}
 
-int Server::openServer(int port, int hz) {
+void Server::openServer(int port, int hz) {
     this->port = port;
     this->hz = hz;
-    int sockfd, newsockfd, portno, clilen;
-    struct sockaddr_in serv_addr, cli_addr;
-    /* First call to socket() function */
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0) {
-        perror("ERROR opening socket");
-        exit(1);
+    int opt = 1;
+    struct sockaddr_in server, client;
+
+    // Creating socket file descriptor
+    if ((sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == 0) {
+        perror("socket failed");
+        exit(EXIT_FAILURE);
     }
-    /* Initialize socket structure */
-    bzero((char *) &serv_addr, sizeof(serv_addr));
-    portno = port;
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons(portno);
-    /* Now bind the host address using bind() call.*/
-    if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
-        perror("ERROR on binding");
-        exit(1);
+
+    // Forcefully attaching socket to the port 8080
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
+        perror("setsockopt");
+        exit(EXIT_FAILURE);
     }
-    listen(sockfd, 1);
-    cout << "waiting for connection..." << endl;
-    /* Accept actual connection from the client */
-    newsockfd = ::accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
-    if (newsockfd < 0) {
-        perror("ERROR on accept");
-        exit(1);
+    server.sin_family = AF_INET;
+    server.sin_addr.s_addr = INADDR_ANY;
+    server.sin_port = htons(port);
+
+    // Forcefully attaching socket to the port 8080
+    if (bind(sockfd, (struct sockaddr *) &server, sizeof(server)) < 0) {
+        perror("bind failed");
+        exit(EXIT_FAILURE);
     }
-    cout << "connected!" << endl;
-    return newsockfd; //return the new sockfd
+    if (listen(sockfd, 5) < 0) {
+        perror("listen");
+        exit(EXIT_FAILURE);
+    }
+
+    //Accept and incoming connection
+    puts("Waiting for incoming connections...");
+    socklen_t addrlen = sizeof(sockaddr_in);
+
+    if (newsockfd = accept(sockfd, (struct sockaddr *) &client, &addrlen)) {
+        cout << "Connection accepted, starting listener thread" << endl;
+    }
 }
 
 vector<double> xmlDataSplitter(string buff) {
     vector<double> info;
     size_t pos = 0;
-    string delimiter = " ";
+    string delimiter = ",";
     while ((pos = buff.find(delimiter)) != string::npos) {
         info.push_back(stod(buff.substr(0, pos)));
         buff.erase(0, pos + delimiter.length());
@@ -55,25 +62,26 @@ vector<double> xmlDataSplitter(string buff) {
     return info;
 }
 
-string Server::socketReader(int sockfd) {
-    while (true) {
-        char buffer[BUF];
-        bzero(buffer, BUF);
-        ssize_t n = read(sockfd, buffer, BUF - 1);
-
-        if (n < 0) {
-            perror("ERROR reading from socket");
-            exit(1);
-        } else if (n == 0) {
-            // ?
-            int y = 0;
-        } else {
-            buffer[n] = NULL; // warning
-            //sleep(1 / time_per_sec); // sleep for the given time
-            cout << buffer << endl; // for check
+string Server::socketReader() {
+    int valread;
+    this->isRunning = true;
+    char buffer[BUF] = {0};
+    while (this->isRunning) {
+        listen(this->sockfd, 5);
+        valread = read(this->newsockfd, buffer, sizeof(buffer));
+        if (valread < 0) {
+            perror("Error reading from socket");
         }
-        vector<double> split_buff = xmlDataSplitter(buffer);
-        this->data.setFlightData(split_buff); // update the map
+        vector<double> values = xmlDataSplitter(buffer);
+        this->_mutex.lock();
+        this->data.setFlightData(values);
+        this->_mutex.unlock();
     }
-    return "";
+    return "exit";
+}
+
+void Server::closeServer() {
+    this->isRunning = false;
+    close(this->sockfd);
+    close(this->newsockfd);
 }

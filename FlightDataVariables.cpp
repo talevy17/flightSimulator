@@ -26,7 +26,7 @@ void FlightDataVariables::flightDataInit() {
     this->flightData.insert(std::pair<string, double>("/controls/flight/elevator" ,0));
     this->flightData.insert(std::pair<string, double>("/controls/flight/rudder" ,0));
     this->flightData.insert(std::pair<string, double>("/controls/flight/flaps" ,0));
-    this->flightData.insert(std::pair<string, double>("/controls/engines/engine/throttle" ,0));
+    this->flightData.insert(std::pair<string, double>("/controls/engines/current-engine/throttle" ,0));
     this->flightData.insert(std::pair<string, double>("/engines/engine/rpm" ,0));
 }
 
@@ -91,16 +91,35 @@ double FlightDataVariables::getValueAtAddress(string address) {
 }
 
 void FlightDataVariables::setFlightData(vector<double> values) {
-    int valIndex = 0;
-    for (auto it = this->flightData.begin(); it != this->flightData.end(); it++) {
-        it->second = values.at(valIndex);
-        try {
-            Var* temp = this->binds.at(it->first);
-            if (temp->calculate() != it->second) {
-                temp->assignValueFromBindAddress(it->second);
+    this->flightData.at("/instrumentation/airspeed-indicator/indicated-speed-kt") = values.at(0);
+    this->flightData.at("/instrumentation/altimeter/indicated-altitude-ft") = values.at(1);
+    this->flightData.at("/instrumentation/altimeter/pressure-alt-ft") = values.at(2);
+    this->flightData.at("/instrumentation/attitude-indicator/indicated-pitch-deg") = values.at(3);
+    this->flightData.at("/instrumentation/attitude-indicator/indicated-roll-deg") = values.at(4);
+    this->flightData.at("/instrumentation/attitude-indicator/internal-pitch-deg") = values.at(5);
+    this->flightData.at("/instrumentation/attitude-indicator/internal-roll-deg") = values.at(6);
+    this->flightData.at("/instrumentation/encoder/indicated-altitude-ft") = values.at(7);
+    this->flightData.at("/instrumentation/encoder/pressure-alt-ft") = values.at(8);
+    this->flightData.at("/instrumentation/gps/indicated-altitude-ft") = values.at(9);
+    this->flightData.at("/instrumentation/gps/indicated-ground-speed-kt") = values.at(10);
+    this->flightData.at("/instrumentation/gps/indicated-vertical-speed") = values.at(11);
+    this->flightData.at("/instrumentation/heading-indicator/indicated-heading-deg") = values.at(12);
+    this->flightData.at("/instrumentation/magnetic-compass/indicated-heading-deg") = values.at(13);
+    this->flightData.at("/instrumentation/slip-skid-ball/indicated-slip-skid") = values.at(14);
+    this->flightData.at("/instrumentation/turn-indicator/indicated-turn-rate") = values.at(15);
+    this->flightData.at("/instrumentation/vertical-speed-indicator/indicated-speed-fpm") = values.at(16);
+    this->flightData.at("/controls/flight/aileron") = values.at(17);
+    this->flightData.at("/controls/flight/elevator" ) = values.at(18);
+    this->flightData.at("/controls/flight/rudder") = values.at(19);
+    this->flightData.at("/controls/flight/flaps") = values.at(20);
+    this->flightData.at("/controls/engines/current-engine/throttle") = values.at(21);
+    this->flightData.at("/engines/engine/rpm") = values.at(22);
+    for (auto it = this->flightData.begin(); it != this->flightData.end(); ++it) {
+        if (this->binds.find(it->first) != this->binds.end()) {
+            if (this->binds.at(it->first)->calculate() != it->second) {
+                this->binds.at(it->first)->assignValueFromBindAddress(it->second);
             }
-        } catch (exception& e) { }
-        valIndex++;
+        }
     }
 }
 

@@ -1,29 +1,19 @@
 #include "OpenDataServer.h"
 #include "ShuntingYard.h"
 
-OpenDataServer::OpenDataServer(FlightDataVariables& dataMaps) :data(dataMaps) {}
+OpenDataServer::OpenDataServer(Server& ser, FlightDataVariables& dataMaps) :server(ser), data(dataMaps) {}
 
-void* socketRead(void* pVoid) {
-    auto* params = (OpenDataServer::socketParameters*) pVoid;
+void socketRead(Server* server) {
     while (true) {
-        auto x = params->ser->socketReader(params->sockfd);
+        auto x = server->socketReader();
         if (x == "exit") {
             break;
         }
     }
-    return nullptr;
 }
-
-void StartThread(OpenDataServer:: socketParameters* params) {
-    pthread_t trid;
-    params->sockfd = params->ser->openServer(params->port, params->hz);
-    pthread_create(&trid, nullptr, socketRead, params);
-}
-
 
 void OpenDataServer::execute(vector<string>::iterator &it) {
     ShuntingYard s(this->data.getSymbolTable());
-    Server server(this->data);
     double port, time;
     //try parsing the variables.
     try {
@@ -33,7 +23,7 @@ void OpenDataServer::execute(vector<string>::iterator &it) {
         time = hzEx->calculate();
         delete(portEx);
         delete(hzEx);
-    } catch (const out_of_range &no_such_var) {
+    } catch (const char* &e) {
         //the Expressions were invalid.
         __throw_runtime_error("invalid params to OpenDataServer Command");
     } // if port or time are negative
@@ -41,7 +31,8 @@ void OpenDataServer::execute(vector<string>::iterator &it) {
         __throw_runtime_error("invalid (neg) params to OpenDataServer");
     }
     // initialize the parameter struct for the socket.
-    socketParameters params = {(int) port, (int) time, &server};
     it++;
-    StartThread(&params); // open new thread
+    this->server.openServer((int) port, (int) time);
+    thread ser(socketRead, &this->server);
+    ser.join();
 }
