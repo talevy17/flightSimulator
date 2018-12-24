@@ -76,7 +76,6 @@ string Server::socketReader() {
         this->_mutex.lock();
         this->data.setFlightData(values);
         this->_mutex.unlock();
-        cout << "updated!" << endl;
     }
     return "exit";
 }

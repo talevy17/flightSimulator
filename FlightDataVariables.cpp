@@ -26,7 +26,7 @@ void FlightDataVariables::flightDataInit() {
     this->flightData.insert(std::pair<string, double>("/controls/flight/elevator" ,0));
     this->flightData.insert(std::pair<string, double>("/controls/flight/rudder" ,0));
     this->flightData.insert(std::pair<string, double>("/controls/flight/flaps" ,0));
-    this->flightData.insert(std::pair<string, double>("/controls/engines/engine/throttle" ,0));
+    this->flightData.insert(std::pair<string, double>("/controls/engines/current-engine/throttle" ,0));
     this->flightData.insert(std::pair<string, double>("/engines/engine/rpm" ,0));
 }
 
@@ -112,7 +112,7 @@ void FlightDataVariables::setFlightData(vector<double> values) {
     this->flightData.at("/controls/flight/elevator" ) = values.at(18);
     this->flightData.at("/controls/flight/rudder") = values.at(19);
     this->flightData.at("/controls/flight/flaps") = values.at(20);
-    this->flightData.at("/controls/engines/engine/throttle") = values.at(21);
+    this->flightData.at("/controls/engines/current-engine/throttle") = values.at(21);
     this->flightData.at("/engines/engine/rpm") = values.at(22);
     for (auto it = this->flightData.begin(); it != this->flightData.end(); ++it) {
         if (this->binds.find(it->first) != this->binds.end()) {
