@@ -54,7 +54,6 @@ void VarCommand::execute(vector<string>::iterator &it) {
         //add the bind and assign the current value from the simulator.
         this->data->addBind(var);
         var->assignValueFromBindAddress(this->data->getValueAtAddress(var->getBindAddress()));
-        //} catch (const char *e){throw e;}
         ++it;
         //it's an assignment, evaluate the expression and assign.
     } else {
