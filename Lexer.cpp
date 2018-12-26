@@ -90,19 +90,17 @@ stritr skipSpaces(stritr beg, stritr end) {
     });
 }
 
+
 stritr findEndFloat (stritr beg, stritr end){
     bool found = false;
     if (!isDigit(*beg)) { return beg;}
-    stritr i,j;
+    stritr j,k;
     while (!found){
-        i = findNum(beg,end);
-        j = findAddress(i,end,'.');
-        if (*j == *end ){
-            found = true;
-            j = i;
-        }
+        j = findAddress(beg,end,' ');
+        k = findAddress(beg,end,',');
+        if(*j==*end){ return k-1;}
+        return j-1;
     }
-    return j;
 }
 
 /**
@@ -123,7 +121,7 @@ void Lexer::splitLine(string line, vector<string> &commandLine) {
         //then check the current note
         if (isDigit(*itr)) {
             curr = findNum(itr, enditr);
-            if ((itr < enditr+1) && (*(itr + 1) == '.')){
+            if ((itr < enditr+1) && (*curr == '.')){
                 curr = findEndFloat(itr+1,enditr);
             }
             if (var) { f = true; }

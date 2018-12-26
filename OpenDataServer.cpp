@@ -34,5 +34,5 @@ void OpenDataServer::execute(vector<string>::iterator &it) {
     it++;
     this->server.openServer((int) port, (int) time);
     thread ser(socketRead, &this->server);
-    ser.join();
+    ser.detach();
 }

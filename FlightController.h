@@ -11,16 +11,17 @@
 #include "OpenDataServer.h"
 #include "IfCommand.h"
 #include "WhileCommand.h"
-//#include "ConnectCommand.h"
-//#include "PrintCommand.h"
+#include "Lexer.h"
+#include "OpenDataServer.h"
+#include "PrintCommand.h"
+#include "ConnectCommand.h"
 
 using namespace std;
 
 class FlightController {
     map<string, Command *> commandMap;
     FlightDataVariables flightDataVariables;
-    string input;
-    bool isFile;
+    Server* server;
 
 public:
     FlightController();

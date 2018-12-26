@@ -1,11 +1,11 @@
-
 #include <cstring>
 #include "Server.h"
 
 #define BUF 2000
 
 /**
- * CTOR.
+ *
+ * @param m
  * @param varsData
  */
 Server::Server(mutex& m, FlightDataVariables &varsData) : _mutex(m), data(varsData) {}
@@ -63,7 +63,7 @@ vector<double> xmlDataSplitter(string buff) {
 }
 
 string Server::socketReader() {
-    int valread;
+    ssize_t valread;
     this->isRunning = true;
     char buffer[BUF] = {0};
     while (this->isRunning) {
@@ -73,9 +73,9 @@ string Server::socketReader() {
             perror("Error reading from socket");
         }
         vector<double> values = xmlDataSplitter(buffer);
-        this->_mutex.lock();
+        unique_lock<mutex> ul(this->_mutex);
         this->data.setFlightData(values);
-        this->_mutex.unlock();
+        ul.unlock();
     }
     return "exit";
 }

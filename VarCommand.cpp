@@ -22,6 +22,7 @@ void VarCommand::execute(vector<string>::iterator &it) {
     //check if the command was called to create a new variable.
     if (*it == "var") {
         var = new Var(*(++it));
+        //////////////////////
         this->data->addVar(var);
         ++it;
         //it's not a creation, it's an assignment.
@@ -59,6 +60,7 @@ void VarCommand::execute(vector<string>::iterator &it) {
     } else {
         ShuntingYard s(this->data->getSymbolTable());
         try {
+            //////////////////////////
             var->assignValue(s(it));
         } catch (const char *ex) {
             throw ex;

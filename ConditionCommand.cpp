@@ -58,10 +58,12 @@ void ConditionCommand::parseCommands(vector<string>::iterator &it,
             while (*it != "}") {
                 it++;
             }
+            it ++;
         } else {
             while (*it != ";") {
                 it++;
             }
         }
     }
+    it++;
 }
