@@ -1,8 +1,5 @@
 #include <fstream>
 #include "FlightController.h"
-#include "Lexer.h"
-#include "OpenDataServer.h"
-#include "PrintCommand.h"
 #define NOT_FOUND -1
 
 typedef vector<string> :: iterator vecitr;
@@ -21,9 +18,12 @@ FlightController::FlightController() {
  */
 
 void FlightController::initializeCommandMap() {
-//    this->commandMap.insert(pair<string, Command *>("openDataServer",
-//            new OpenDataServer(this->flightDataVariables)));
-    //this->commandMap.insert(pair<string,Command*>("connect",new ConnectCommand));
+    mutex m;
+    this -> server = new Server(m, this->flightDataVariables);
+    this->commandMap.insert(pair<string, Command *>("openDataServer",
+            new OpenDataServer(*this->server,this->flightDataVariables)));
+    this->commandMap.insert(pair<string,Command*>("connect",
+            new ConnectCommand(this->flightDataVariables)));
     this->commandMap.insert(pair<string, Command *>("if",
             new IfCommand(&this->flightDataVariables, &this->commandMap)));
     this->commandMap.insert(pair<string, Command *>("while",

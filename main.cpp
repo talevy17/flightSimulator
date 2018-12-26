@@ -12,14 +12,16 @@
 using namespace std;
 
 
-int main (int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
+    bool stop = false;
     FlightController fc;
     try {
         string i = argv[1];
         fc.controller(i, true);
-    } catch (const char *e){
+    } catch (const char *e) {
         perror(e);
     }
+    while(true){}
     return 0;
 }
 /*

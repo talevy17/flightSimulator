@@ -1,7 +1,2 @@
-var x = 2
-while x < 5 {
-x = x+1
-if (x == 3 ) {
-x = x + 2
-}
-}
+connect 127.0.0.1 5402
+print "c"
