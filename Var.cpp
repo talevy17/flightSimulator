@@ -38,8 +38,11 @@ void Var::assignValue(double val) {
     this->value = val;
     //update value.
     if (!this -> bindAddress.empty()){
+        unique_lock<mutex> ul(this->_mutex);
         this->client.send(this->bindAddress, val);
+        ul.unlock();
     }
+
 }
 
 /**
@@ -47,10 +50,10 @@ void Var::assignValue(double val) {
 * @param ex
 */
 void Var::assignValue(Expression *ex) {
-    //////////////////mutex
+    //unique_lock<mutex> ul(this->_mutex);
     double d = ex->calculate();
     assignValue(d);
-    //////////////////mutex
+    //ul.unlock();
     delete(ex);
 }
 
@@ -72,7 +75,11 @@ void Var::bind(string address) {
 * in case of an update from the simulator, updates the value without resetting the value in the simulator.
 * @param val double value from flight data map.
 */
-void Var::assignValueFromBindAddress(double val) {this->value = val;}
+void Var::assignValueFromBindAddress(double val) {
+    unique_lock<mutex> ul(this->_mutex);
+    this->value = val;
+    ul.unlock();
+}
 
 /**
 * calculates the value of the node.

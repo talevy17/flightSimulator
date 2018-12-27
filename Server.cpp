@@ -8,7 +8,7 @@
  * @param m
  * @param varsData
  */
-Server::Server(mutex& m, FlightDataVariables &varsData) : _mutex(m), data(varsData) {}
+Server::Server(mutex &m, FlightDataVariables &varsData) : _mutex(m), data(varsData) {}
 
 void Server::openServer(int port, int hz) {
     this->port = port;
@@ -44,8 +44,8 @@ void Server::openServer(int port, int hz) {
     //Accept and incoming connection
     puts("Waiting for incoming connections...");
     socklen_t addrlen = sizeof(sockaddr_in);
-
-    if (newsockfd = accept(sockfd, (struct sockaddr *) &client, &addrlen)) {
+    newsockfd = accept(sockfd, (struct sockaddr *) &client, &addrlen);
+    if (newsockfd < 0) {
         cout << "Connection accepted, starting listener thread" << endl;
     }
 }
@@ -73,9 +73,7 @@ string Server::socketReader() {
             perror("Error reading from socket");
         }
         vector<double> values = xmlDataSplitter(buffer);
-        unique_lock<mutex> ul(this->_mutex);
         this->data.setFlightData(values);
-        ul.unlock();
     }
     return "exit";
 }
@@ -84,7 +82,7 @@ void Server::closeServer() {
     this->isRunning = false;
 }
 
-Server ::~Server() {
+Server::~Server() {
     close(this->sockfd);
     close(this->newsockfd);
 }

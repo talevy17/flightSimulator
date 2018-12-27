@@ -11,9 +11,7 @@
 
 using namespace std;
 
-
 int main(int argc, char *argv[]) {
-    bool stop = false;
     FlightController fc;
     try {
         string i = argv[1];
@@ -22,7 +20,6 @@ int main(int argc, char *argv[]) {
         perror(e);
     }
     while(true){}
-    return 0;
 }
 /*
 int main() {
