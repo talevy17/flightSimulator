@@ -15,6 +15,7 @@
 #include "OpenDataServer.h"
 #include "PrintCommand.h"
 #include "ConnectCommand.h"
+#include "SleepCommand.h"
 
 using namespace std;
 

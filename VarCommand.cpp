@@ -9,8 +9,10 @@
 * CTOR, receives access to the data maps.
 * @param maps
 */
-VarCommand::VarCommand(FlightDataVariables *maps) {
+VarCommand::VarCommand(FlightDataVariables *maps, Client &client, mutex &m)
+: _mutex(m){
     this->data = maps;
+    this-> client = client;
 }
 
 /**
@@ -21,8 +23,8 @@ void VarCommand::execute(vector<string>::iterator &it) {
     Var *var;
     //check if the command was called to create a new variable.
     if (*it == "var") {
-        var = new Var(*(++it));
-        //////////////////////
+        var = new Var(*(++it),this->client, this->_mutex);
+        //***add new var***
         this->data->addVar(var);
         ++it;
         //it's not a creation, it's an assignment.
@@ -60,7 +62,7 @@ void VarCommand::execute(vector<string>::iterator &it) {
     } else {
         ShuntingYard s(this->data->getSymbolTable());
         try {
-            //////////////////////////
+            //***assign var***
             var->assignValue(s(it));
         } catch (const char *ex) {
             throw ex;
