@@ -18,7 +18,7 @@ typedef string::iterator stritr;
  * @return bool, true - if c is a digit, false - else
  */
 bool isDigit(char c) {
-    return c <= '9' && c >= '0';
+    return (c <= '9' && c >= '0') || c == '.';
 }
 
 /**
@@ -91,17 +91,17 @@ stritr skipSpaces(stritr beg, stritr end) {
 }
 
 
-stritr findEndFloat (stritr beg, stritr end){
-    bool found = false;
-    if (!isDigit(*beg)) { return beg;}
-    stritr j,k;
-    while (!found){
-        j = findAddress(beg,end,' ');
-        k = findAddress(beg,end,',');
-        if(*j==*end){ return k-1;}
-        return j-1;
-    }
-}
+//stritr findEndFloat (stritr beg, stritr end){
+//    bool found = false;
+//    if (!isDigit(*beg)) { return beg;}
+//    stritr j,k;
+//    while (!found){
+//        j = findAddress(beg,end,' ');
+//        k = findAddress(beg,end,',');
+//        if(*j==*end){ return k-1;}
+//        return j-1;
+//    }
+//}
 
 /**
  * the function gets command and vector of strings,
@@ -121,9 +121,9 @@ void Lexer::splitLine(string line, vector<string> &commandLine) {
         //then check the current note
         if (isDigit(*itr)) {
             curr = findNum(itr, enditr);
-            if ((itr < enditr+1) && (*curr == '.')){
-                curr = findEndFloat(itr+1,enditr);
-            }
+//            if ((itr < enditr+1) && (*curr == '.')){
+//                curr = findEndFloat(itr+1,enditr);
+//            }
             if (var) { f = true; }
             var = true;
         } else if (isLetter(*itr)) {

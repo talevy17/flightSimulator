@@ -24,7 +24,7 @@ void FlightController::initializeCommandMap() {
     this->commandMap.insert(pair<string, Command *>("openDataServer",
             new OpenDataServer(*this->server,this->flightDataVariables)));
     this->commandMap.insert(pair<string,Command*>("connect",
-            new ConnectCommand(this->flightDataVariables,c)));
+            new ConnectCommand(&this->flightDataVariables,c)));
     this->commandMap.insert(pair<string, Command *>("if",
             new IfCommand(&this->flightDataVariables, &this->commandMap)));
     this->commandMap.insert(pair<string, Command *>("while",

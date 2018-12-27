@@ -85,7 +85,7 @@ double FlightDataVariables::getValueAtAddress(string address) {
     try {
         return this->flightData.at(address);
     } catch (exception& e) {
-        throw "address does not exist";
+        return 0;
     }
 }
 

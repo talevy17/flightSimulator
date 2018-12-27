@@ -10,51 +10,50 @@
 #include <netdb.h>
 #include "FlightDataVariables.h"
 
+#define BUFFER 256
+
 
 void Client::openClient(string ip, double port) {
-    int sockfd, n;
+    cout << "please enter char when the simulator is open"<< endl;
+    bool stop = false;
+    while (!stop){
+        char c;
+        cin >> c;
+        stop = true;
+    }
+
     struct sockaddr_in serv_addr;
-    struct hostent *server;
-
-    /* Create a socket point */
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
-    if (sockfd < 0) {
-        perror("ERROR opening socket");
-        exit(EXIT_FAILURE);
+    int sock_fd;
+    if ((sock_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+        printf("\n Socket creation error \n");
+        exit(0);
     }
 
-    server = gethostbyname(ip.c_str());
+    memset(&serv_addr, 0, sizeof(serv_addr));
 
-    if (server == NULL) {
-        fprintf(stderr, "ERROR, no such host\n");
-        exit(EXIT_FAILURE);
-    }
-
-    bzero((char *) &serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    bcopy(server->h_addr, (char *) &serv_addr.sin_addr.s_addr, server->h_length);
     serv_addr.sin_port = htons(port);
+    serv_addr.sin_addr.s_addr = inet_addr(ip.c_str());
 
-    /* Now connect to the server */
-    while (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
-        if (errno == ECONNREFUSED) {
-            usleep(1);
-        } else {
-            perror("ERROR connecting");
-            exit(EXIT_FAILURE);
-        }
+    // Convert IPv4 and IPv6 addresses from text to binary form
+    if (inet_pton(AF_INET, ip.c_str(), &serv_addr.sin_addr) <= 0) {
+        printf("\nInvalid address/ Address not supported \n");
+        exit(0);
     }
-    this->server_sock_fd = sockfd;
+    if (connect(sock_fd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
+        printf("\nConnection Failed \n");
+        exit(0);
+    }
+    this->server_sock_fd = sock_fd;
 }
 
 void Client::send(string path, double newVal) {
-    string first = "set " + path+ " " + to_string(newVal) + " \r\n";
-    ssize_t valWrite = write(this->server_sock_fd, path.c_str(), path.size());
-    if (valWrite < 0) {
-        perror("error writing to socket");
-        exit(EXIT_FAILURE);
-    }
+    char *conversion = new char[BUFFER];
+    bzero(conversion,BUFFER);
+    sprintf(conversion, "set %s %s \r\n", path.c_str(),
+            std::to_string(newVal).c_str());
+    ssize_t x = ::send(this->server_sock_fd, conversion, strlen(conversion),0);
+    cout << x << endl;
 }
 
 Client::~Client() {
