@@ -8,29 +8,27 @@
 #include <errno.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include "FlightDataVariables.h"
 
-#define BUFFER 256
 
 void Client::openClient(string ip, double port) {
     int sockfd, n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
 
-    char buffer[BUFFER];
-
     /* Create a socket point */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
     if (sockfd < 0) {
         perror("ERROR opening socket");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     server = gethostbyname(ip.c_str());
 
     if (server == NULL) {
         fprintf(stderr, "ERROR, no such host\n");
-        exit(0);
+        exit(EXIT_FAILURE);
     }
 
     bzero((char *) &serv_addr, sizeof(serv_addr));
@@ -44,16 +42,18 @@ void Client::openClient(string ip, double port) {
             usleep(1);
         } else {
             perror("ERROR connecting");
-            exit(1);
+            exit(EXIT_FAILURE);
         }
     }
     this->server_sock_fd = sockfd;
 }
 
-void Client::send(string s) {
-    if (write(this->server_sock_fd, s.c_str(), s.size()) < 0) {
+void Client::send(string path, double newVal) {
+    string first = "set " + path+ " " + to_string(newVal) + " \r\n";
+    ssize_t valWrite = write(this->server_sock_fd, path.c_str(), path.size());
+    if (valWrite < 0) {
         perror("error writing to socket");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 }
 

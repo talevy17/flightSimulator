@@ -82,6 +82,9 @@ string Server::socketReader() {
 
 void Server::closeServer() {
     this->isRunning = false;
+}
+
+Server ::~Server() {
     close(this->sockfd);
     close(this->newsockfd);
 }

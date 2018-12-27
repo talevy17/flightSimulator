@@ -1,22 +1,27 @@
 
 #include "Var.h"
 
+
 /**
 * CTOR.
 * @param varName string name
 * @param val double value
 */
-Var::Var(string varName, double val) {
+Var::Var(string varName, double val, Client &client, mutex &m)
+:_mutex(m){
     this->value = val;
     this->name = varName;
+    this->client = client;
 }
 
 /**
 * CTOR.
 * @param varName string name
 */
-Var::Var(string varName) {
+Var::Var(string varName, Client &client, mutex &m)
+:_mutex(m) {
     this->name = varName;
+    this->client = client;
 }
 
 /**
@@ -31,7 +36,10 @@ string Var::getName() const {return this->name;}
 */
 void Var::assignValue(double val) {
     this->value = val;
-    //if bind...
+    //update value.
+    if (!this -> bindAddress.empty()){
+        this->client.send(this->bindAddress, val);
+    }
 }
 
 /**
@@ -39,7 +47,10 @@ void Var::assignValue(double val) {
 * @param ex
 */
 void Var::assignValue(Expression *ex) {
-    assignValue(ex->calculate());
+    //////////////////mutex
+    double d = ex->calculate();
+    assignValue(d);
+    //////////////////mutex
     delete(ex);
 }
 
@@ -53,7 +64,9 @@ string Var::getBindAddress() const {return this->bindAddress;}
 * sets the binding address.
 * @param address
 */
-void Var::bind(string address) {this->bindAddress = address;}
+void Var::bind(string address) {
+    this->bindAddress = address;
+}
 
 /**
 * in case of an update from the simulator, updates the value without resetting the value in the simulator.

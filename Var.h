@@ -5,6 +5,7 @@
 
 #include <string>
 #include "Expression.h"
+#include "Client.h"
 
 /**
  * A single variable, a node in the expression design pattern.
@@ -13,19 +14,21 @@ class Var : public Expression {
     string name;
     string bindAddress;
     double value;
+    Client client;
+    mutex &_mutex;
 public:
     /**
      * CTOR.
      * @param varName string name
      * @param val double value
      */
-    Var(string varName, double val);
+    Var(string varName, double val, Client &client, mutex &m);
 
     /**
      * CTOR.
      * @param varName string name
      */
-    Var(string varName);
+    Var(string varName, Client &client, mutex &m);
 
     /**
      * name getter.

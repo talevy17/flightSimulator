@@ -27,6 +27,7 @@ public:
 
     void closeServer();
 
+    ~Server();
 };
 
 

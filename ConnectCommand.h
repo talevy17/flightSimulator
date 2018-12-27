@@ -8,8 +8,9 @@
 
 class ConnectCommand : public Command {
     FlightDataVariables &data;
+    Client client;
 public:
-    explicit ConnectCommand(FlightDataVariables &dataMaps);
+    ConnectCommand(FlightDataVariables &dataMaps, Client &client);
     void execute(vector<string>:: iterator& it) override;
 };
 
