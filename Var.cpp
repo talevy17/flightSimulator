@@ -7,7 +7,7 @@
 * @param varName string name
 * @param val double value
 */
-Var::Var(string varName, double val, Client &client, mutex &m)
+Var::Var(string varName, double val, Client *client, mutex &m)
 :_mutex(m){
     this->value = val;
     this->name = varName;
@@ -18,7 +18,7 @@ Var::Var(string varName, double val, Client &client, mutex &m)
 * CTOR.
 * @param varName string name
 */
-Var::Var(string varName, Client &client, mutex &m)
+Var::Var(string varName, Client *client, mutex &m)
 :_mutex(m) {
     this->name = varName;
     this->client = client;
@@ -39,10 +39,9 @@ void Var::assignValue(double val) {
     //update value.
     if (!this -> bindAddress.empty()){
         unique_lock<mutex> ul(this->_mutex);
-        this->client.send(this->bindAddress, val);
+        this->client->send(this->bindAddress, val);
         ul.unlock();
     }
-
 }
 
 /**
@@ -50,10 +49,8 @@ void Var::assignValue(double val) {
 * @param ex
 */
 void Var::assignValue(Expression *ex) {
-    //unique_lock<mutex> ul(this->_mutex);
     double d = ex->calculate();
     assignValue(d);
-    //ul.unlock();
     delete(ex);
 }
 
@@ -76,9 +73,9 @@ void Var::bind(string address) {
 * @param val double value from flight data map.
 */
 void Var::assignValueFromBindAddress(double val) {
-    unique_lock<mutex> ul(this->_mutex);
+//    unique_lock<mutex> ul(this->_mutex);
     this->value = val;
-    ul.unlock();
+//    ul.unlock();
 }
 
 /**

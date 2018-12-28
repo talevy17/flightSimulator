@@ -9,7 +9,7 @@
 * CTOR, receives access to the data maps.
 * @param maps
 */
-VarCommand::VarCommand(FlightDataVariables *maps, Client &client, mutex &m)
+VarCommand::VarCommand(FlightDataVariables *maps, Client *client, mutex &m)
 : _mutex(m){
     this->data = maps;
     this-> client = client;

@@ -19,12 +19,12 @@ FlightController::FlightController() {
 
 void FlightController::initializeCommandMap() {
     mutex m;
-    Client c;
+    this -> client = new Client();
     this -> server = new Server(m, this->flightDataVariables);
     this->commandMap.insert(pair<string, Command *>("openDataServer",
             new OpenDataServer(*this->server,this->flightDataVariables)));
     this->commandMap.insert(pair<string,Command*>("connect",
-            new ConnectCommand(&this->flightDataVariables,c)));
+            new ConnectCommand(&this->flightDataVariables,this->client)));
     this->commandMap.insert(pair<string, Command *>("if",
             new IfCommand(&this->flightDataVariables, &this->commandMap)));
     this->commandMap.insert(pair<string, Command *>("while",
@@ -32,7 +32,7 @@ void FlightController::initializeCommandMap() {
     this->commandMap.insert(pair<string,Command*>("print",
             new PrintCommand(&this->flightDataVariables)));
     this->commandMap.insert(pair<string, Command *>("var",
-            new VarCommand(&this->flightDataVariables,c,m)));
+            new VarCommand(&this->flightDataVariables,this->client,m)));
     this->commandMap.insert(pair<string,Command*>("sleep",
             new SleepCommand(&this->flightDataVariables)));
 }
@@ -112,7 +112,8 @@ void FlightController::parser(vector<string> &commandLine) {
                 flightDataVariables.getVar(*commandIt);
                 commandMap.at("var")->execute(commandIt);
             }
-            catch (const char *exception) { throw "error, undefined command"; }
+            catch (const char *exception) {
+                throw "error, undefined command"; }
         }
     }
 }

@@ -14,7 +14,7 @@ class Var : public Expression {
     string name;
     string bindAddress;
     double value;
-    Client client;
+    Client* client;
     mutex &_mutex;
 public:
     /**
@@ -22,13 +22,13 @@ public:
      * @param varName string name
      * @param val double value
      */
-    Var(string varName, double val, Client &client, mutex &m);
+    Var(string varName, double val, Client *client, mutex &m);
 
     /**
      * CTOR.
      * @param varName string name
      */
-    Var(string varName, Client &client, mutex &m);
+    Var(string varName, Client *client, mutex &m);
 
     /**
      * name getter.

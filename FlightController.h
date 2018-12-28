@@ -23,6 +23,7 @@ class FlightController {
     map<string, Command *> commandMap;
     FlightDataVariables flightDataVariables;
     Server* server;
+    Client* client;
 
 public:
     FlightController();

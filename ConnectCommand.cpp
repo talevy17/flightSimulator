@@ -1,7 +1,7 @@
 #include <thread>
 #include "ConnectCommand.h"
 
-ConnectCommand::ConnectCommand(FlightDataVariables *dataMaps, Client &client) :
+ConnectCommand::ConnectCommand(FlightDataVariables *dataMaps, Client *client) :
 data(dataMaps){
     this->client = client;
 }
@@ -12,6 +12,6 @@ void ConnectCommand::execute(vector<string>::iterator &it) {
     it++;
     Expression *port = s(++it);
     double dport = port->calculate();
-    this->client.openClient(ip, dport);
+    this->client->openClient(ip, dport);
     it++;
 }
