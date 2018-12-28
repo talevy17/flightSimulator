@@ -1,3 +1,4 @@
+#include <thread>
 #include "SleepCommand.h"
 #include "ShuntingYard.h"
 
@@ -7,8 +8,9 @@ SleepCommand ::SleepCommand(FlightDataVariables *dataVariables) {
 
 void SleepCommand :: execute(vector<string>::iterator &it){
     ShuntingYard s(this->data->getSymbolTable());
-    Expression* microseconds = s(++it);
-    double microsec = microseconds -> calculate();
-    usleep(microsec);
+    Expression* msec = s(++it);
+    double sec = msec -> calculate();
+    this_thread :: sleep_for(chrono::milliseconds(static_cast<int>(sec)));
+    usleep(sec);
     it++;
 }

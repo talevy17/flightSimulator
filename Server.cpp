@@ -73,9 +73,7 @@ string Server::socketReader() {
             perror("Error reading from socket");
         }
         vector<double> values = xmlDataSplitter(buffer);
-        unique_lock<mutex> ul(this->_mutex);
         this->data.setFlightData(values);
-        ul.unlock();
     }
     return "exit";
 }
