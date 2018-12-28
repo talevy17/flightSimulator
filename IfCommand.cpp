@@ -27,14 +27,14 @@ void IfCommand::execute(vector<string>::iterator &it) {
     } catch (const char *e) {
         throw e;
     }
+    //try parsing the commands.
+    try {
+        this->parseCommands(it, cmds, args);
+    } catch (const char *e) {
+        throw e;
+    }
     //check the condition.
     if (condition->calculate()) {
-        //try parsing the commands.
-        try {
-            this->parseCommands(it, cmds, args);
-        } catch (const char *e) {
-            throw e;
-        }
         //try to execute all of the commands in the block.
         for (unsigned long int i = 0; i < cmds.size(); i++) {
             try {
