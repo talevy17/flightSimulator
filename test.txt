@@ -44,23 +44,16 @@ sleep 1000
 sleep 5000
 print "let's fly"
 var h0 = heading
-print "h0" h0
-breaks = 0
-print "breaks" breaks
+brake = 0
 throttle = 1
-print "throttle" throttle
-while alt < 1000 {
-print "in while"
+while alt < 0 {
 rudder = (h0 - heading)/80
-print "rud" rudder
 aileron = -roll / 70
-print "ail" aileron
 elevator = pitch / 50
-print "ele" elevator
 print "alt = " alt
 sleep 250
 }
-
+exit
 
 
 
