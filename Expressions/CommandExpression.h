@@ -3,7 +3,7 @@
 #define FLIGHTSIMULATOR_COMMANDEXPRESSION_H
 
 #include "Expression.h"
-#include "Command.h"
+#include "Commands/Command.h"
 
 /**
  * Adapter class ! adapts commands to expressions.

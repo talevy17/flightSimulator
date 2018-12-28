@@ -2,7 +2,7 @@
 #define FLIGHTSIMULATOR_SLEEP_H
 
 #include "Command.h"
-#include "FlightDataVariables.h"
+#include "Data/FlightDataVariables.h"
 #include <unistd.h>
 
 class SleepCommand : public Command {

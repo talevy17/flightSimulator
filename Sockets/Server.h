@@ -1,7 +1,7 @@
 #ifndef FLIGHTSIMULATOR_SERVER_H
 #define FLIGHTSIMULATOR_SERVER_H
 
-#include "FlightDataVariables.h"
+#include "Data/FlightDataVariables.h"
 #include "vector"
 #include <netdb.h>
 #include <sys/socket.h>

@@ -2,7 +2,7 @@
 #ifndef FLIGHTSIMULATOR_FLIGHTDATAVARIABLES_H
 #define FLIGHTSIMULATOR_FLIGHTDATAVARIABLES_H
 
-#include "Var.h"
+#include "Expressions/Var.h"
 #include <map>
 #include <vector>
 

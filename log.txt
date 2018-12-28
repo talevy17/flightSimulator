@@ -1,0 +1,425 @@
+commit beb8e882cf9620b780fe5fcbec3ec2883410a53d
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Fri Dec 28 21:27:57 2018 +0200
+
+    done
+
+commit e349a7fa9327c363e96256f2de32eb135a603530
+Merge: 967c43a 6efeaa8
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Fri Dec 28 17:42:06 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit 967c43a9d9098e73b98dc8c0bc73999e1338619b
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Fri Dec 28 17:41:12 2018 +0200
+
+    no changes
+
+commit 6efeaa8be20a0670bb019cbc3f364d088cbc543e
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Fri Dec 28 17:33:48 2018 +0200
+
+    Exit command is now available, in addition changed the close socket methods and added documentation.
+
+commit 5f8d93e948a562d2e7b493e79419eb43665f9b74
+Merge: ede199e 1405180
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Fri Dec 28 16:03:45 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit ede199ec16a67e34300f164677dfe26bb267817b
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Fri Dec 28 16:02:42 2018 +0200
+
+    main and adapter
+
+commit 1405180b93fee74fe1db9bfd7d7b68cf7ebe8422
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Fri Dec 28 13:34:13 2018 +0200
+
+    added documentation, server
+
+commit b70a965ed7988501cef627a741ec2f4948c11dc8
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Fri Dec 28 13:24:52 2018 +0200
+
+    if condition bug fixed.
+
+commit 7b9b12d1659f27ccdf8cd75b189be75d28404a0c
+Merge: f867726 9bd95fb
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Fri Dec 28 13:07:01 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit 9bd95fb7e21d2bc21eee102a186a1e73b9d1ea13
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Fri Dec 28 04:45:14 2018 +0200
+
+    done.
+
+commit 1da70b590331f50e145fc1cd9a058ab9d4b2a645
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Fri Dec 28 03:37:01 2018 +0200
+
+    few changes
+
+commit f867726022bafaeb06079bf7e05a18aa6e54246d
+Merge: b0eeb34 e14188c
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Thu Dec 27 23:13:09 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit e14188cd2c88dc94b9376a065becb377816b2605
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Thu Dec 27 23:12:02 2018 +0200
+
+    last changes
+
+commit b0eeb34c1232d70b909782a76e25f4efc89117a1
+Merge: 5759aaa 548ce6b
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Thu Dec 27 17:15:13 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit 548ce6b4ba4741208ab8d9fc71d2129679e90cc2
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Thu Dec 27 16:51:52 2018 +0200
+
+    client and write to server, few changes in var and var-command
+
+commit 5759aaa9b20518cdbf730037575dda0ed7cb3891
+Merge: 0569b80 3d89d45
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Wed Dec 26 23:25:51 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit 0569b80182e5d21ef4e33322dc9291937b08ce49
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Wed Dec 26 23:25:32 2018 +0200
+
+    varcommand slight changes
+
+commit 3d89d45e8103d49d396c7921152597dee60eb217
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Wed Dec 26 22:18:25 2018 +0200
+
+    client and connect command. also few small chages in lexer and openDataServer
+
+commit 2056635130f47b9f8d91b044c11edd1d258b3f23
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Tue Dec 25 00:03:24 2018 +0200
+
+    now its all work together
+
+commit fafd04e6cfbe9c4ef1f5d1f5c1fb09e4f02166c0
+Merge: 0a2aa6c 7aa12f2
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Mon Dec 24 22:57:27 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit 0a2aa6cd01e3715d1ee9ccf9bea97db0238cff94
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Mon Dec 24 22:56:33 2018 +0200
+
+    var command
+
+commit 7aa12f22657c11f131a88ce1c506ddb66c9bb982
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Mon Dec 24 22:55:13 2018 +0200
+
+    fixed varCommand.
+
+commit a5269c544a80614ddc3728bcba32f6c94c717e3a
+Merge: 087143d 3cc8ede
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Mon Dec 24 22:50:50 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit 087143dffcca2eee17149c83391aa278110510c2
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Mon Dec 24 22:50:16 2018 +0200
+
+    var
+
+commit 3cc8ede3bca8d7a0119126c850b284ba7515d09e
+Merge: a51a5e2 04b96b1
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Mon Dec 24 22:48:08 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit a51a5e2daeeb73d72de33f84224ddf8f2c288ab7
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Mon Dec 24 22:46:27 2018 +0200
+
+    changed var bind,
+
+commit 04b96b14c2934b43b74729753535692d1f64ecfe
+Merge: b008e46 a0158eb
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Mon Dec 24 22:44:19 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit b008e46a3bde90e699be5252e55e85bd8750da2c
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Mon Dec 24 22:40:18 2018 +0200
+
+    lexer parser and flightController
+
+commit a0158eb9261ee020b72ff9bcb211ea5b3bf72720
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Mon Dec 24 21:22:36 2018 +0200
+
+    changed the throttle address.
+
+commit 07dcba602f6c9a519c465c5aef643deca2095659
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Mon Dec 24 21:01:07 2018 +0200
+
+    switched from pthreads to c++ threads and changed connection logic.
+
+commit 846db7c7453a9f8ef596d94f42add4b3562ac20d
+Merge: bf9ce9f 665b8c7
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Sun Dec 23 12:59:21 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit bf9ce9fb155092cea591b9e4af9196df034861df
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Sun Dec 23 12:58:18 2018 +0200
+
+    changes stuff, not really sure what.
+
+commit 665b8c729279228cbf864e113d639fb89c38c494
+Merge: 4938082 9027747
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Sun Dec 23 02:25:12 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit 4938082beb95d88d1141645953626f25e165b6ca
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Sun Dec 23 02:24:08 2018 +0200
+
+    lexer and parser
+
+commit 90277479cd3fe08e0b946eccf5cc45e6bca6e9f8
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Sun Dec 23 01:11:58 2018 +0200
+
+    OpenDataServer and Server were added, able to connect bit cannot write for some reason.
+
+commit 60f518784351052619906176d1d4ead78c8131b7
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Sat Dec 22 17:49:09 2018 +0200
+
+    CommandExpression adapter and added documentation (:
+
+commit e3364a9db8c94789b6dab5968b3bc945492b2985
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Sat Dec 22 17:22:51 2018 +0200
+
+    print command and stuff
+
+commit 4ab7edf7d188a46f65da785cc47734395d6e0cc2
+Merge: 2788028 e65dd29
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Sat Dec 22 14:11:04 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit 27880289dd69a4d667582eb1045b17763e900adb
+Merge: f468341 487e9c8
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Sat Dec 22 14:03:05 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit e65dd29e283790fdb494324b6143c05862c0fa1c
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Sat Dec 22 13:57:11 2018 +0200
+
+    fixed string reading from consol
+
+commit d973cd987be1d50800f6aab5437cfbb9b4c9f538
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Sat Dec 22 13:22:37 2018 +0200
+
+    changed Var to var
+
+commit 0e0333c17e6f60b34b973f41aeee4da8a103350e
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Sat Dec 22 13:16:04 2018 +0200
+
+    While debugged + added documentation.
+
+commit 78580c2028e5645d7f1a6b9503807f6b90bd8877
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Fri Dec 21 21:47:43 2018 +0200
+
+    introducing while commands ! (Not throughly checked yet)
+
+commit f82aa0bbaf38235973f14c49cc7d54029a59c25b
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Fri Dec 21 19:09:24 2018 +0200
+
+    sealed memory leaks (:
+
+commit f468341efbc29224b3022fae15ef87360af7f525
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Fri Dec 21 17:21:16 2018 +0200
+
+    Lexer and parser are ready. start of OpenDataServer
+
+commit 487e9c80e1903ab472e775a6e6c5e5c42ab523f4
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Fri Dec 21 16:14:04 2018 +0200
+
+    Equal and NotEqual
+
+commit 8de27fd7ef1a172bcb5187df14415aff9c983364
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Fri Dec 21 15:02:22 2018 +0200
+
+    intoducing condition commands and if blocks !
+
+commit 7a726b8ac724158e2b54a17aedaf820c76a5638d
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Fri Dec 21 12:44:13 2018 +0200
+
+    added documentation
+
+commit 0bf26a67fdaa8a188e27d437fe7b4caad12bed6a
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Fri Dec 21 12:32:19 2018 +0200
+
+    finished both-way connection between the Variables and their bind addresses, still lacks reading and writting values from/to the simulator.
+
+commit acc110be94be206b9dfc1efcab1708944230eb48
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Thu Dec 20 23:00:41 2018 +0200
+
+    var command and data maps are now available !!!
+
+commit 8b329d6786ccdba5d8ab7376abe452979775ca9c
+Merge: 4303989 4a856a7
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Thu Dec 20 18:01:54 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit 4303989f4eeb1b9e0a6204c2554f5933d4a16432
+Merge: bf1e0eb c904384
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Thu Dec 20 18:00:36 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit 4a856a791091381ec4edc81e52c3024643d1f40b
+Merge: c904384 bf1e0eb
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Thu Dec 20 17:58:45 2018 +0200
+
+    adjusting to life with vectors instead of queues.
+
+commit c9043840f72b1e679ba2764a10d2cfd1b5e1ab9b
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Thu Dec 20 17:41:41 2018 +0200
+
+    added documentation.
+
+commit bf1e0eb7e443b9846d63e7c97dd41c8c72e24206
+Merge: fd2f6c8 0ca75f7
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Thu Dec 20 17:40:32 2018 +0200
+
+    Merge branch 'master' of https://github.com/talevy17/flightSimulator
+
+commit 61606a310426dde56f5f69ac2b186afd2f29d21a
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Thu Dec 20 17:28:08 2018 +0200
+
+    name getter, in var
+
+commit fd2f6c83bc3232ab79eee91279640dcaa07a33e3
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Thu Dec 20 17:13:27 2018 +0200
+
+    main
+
+commit 5602fe189281578c5ccac737854f8f15f23aed82
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Thu Dec 20 17:09:16 2018 +0200
+
+    Lexer and Vectors instead of queue.
+
+commit b3fbfc4dd22542bf3e5cc05f70cc4686ef694a5d
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Thu Dec 20 16:57:39 2018 +0200
+
+    Var supports assigns now.
+
+commit 0ca75f7e7e6bf60f1b417e3a810a0910a5fce51a
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Thu Dec 20 16:47:56 2018 +0200
+
+    changed the command queue into a vector<string> passed by an iterator throughout the interpataion.
+
+commit 9a84859ff3382d9e00dcef8c2362650f59c4a61c
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Wed Dec 19 22:38:22 2018 +0200
+
+    added documentation.
+
+commit 208b05f59ca5f421f3dd12eb13be3511b8dfb15e
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Wed Dec 19 22:30:01 2018 +0200
+
+    adding var classes, updating shunting yard to support them
+
+commit e7c02c469fd8392384eb5f9bc5b497250c423c9a
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Wed Dec 19 15:48:57 2018 +0200
+
+    ShuntingYard supports comparing expressions now.
+
+commit e15beb24f1a2e078fdfcae680e2473d52d3d60b3
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Tue Dec 18 21:24:00 2018 +0200
+
+    added support to floating points on shunting yard
+
+commit fcf9a91376d0a1de90c5c244a4a9807895519e2d
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Tue Dec 18 21:11:17 2018 +0200
+
+    finally
+
+commit dcacc0c50f7645e8352184ff98576ee0cd4f8bc8
+Author: Karin Elimelech <karinii4536@gmail.com>
+Date:   Mon Dec 17 19:58:51 2018 +0200
+
+    "Finally."
+
+commit 57bdd10bed756fbdedbc334fdbeda673becde436
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Mon Dec 17 18:54:29 2018 +0200
+
+    Added documentation, space ignorance and general modifications to ShuntingYard.
+
+commit 1323edd780393aa1c937b5241d76d342e9070e51
+Author: Tal Levy <orntal17@gmail.com>
+Date:   Mon Dec 17 16:51:49 2018 +0200
+
+    first modified commit

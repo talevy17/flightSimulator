@@ -1,6 +1,6 @@
 #include <thread>
 #include "SleepCommand.h"
-#include "ShuntingYard.h"
+#include "Interpreter/ShuntingYard.h"
 
 /**
  * constructor

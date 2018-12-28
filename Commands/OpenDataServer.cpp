@@ -1,5 +1,5 @@
 #include "OpenDataServer.h"
-#include "ShuntingYard.h"
+#include "Interpreter/ShuntingYard.h"
 #include "SleepCommand.h"
 
 OpenDataServer::OpenDataServer(Server& ser, FlightDataVariables& dataMaps) :server(ser), data(dataMaps) {}

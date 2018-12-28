@@ -2,8 +2,8 @@
 #define FLIGHTSIMULATOR_SAFEEXIT_H
 
 #include "Command.h"
-#include "Server.h"
-#include "Client.h"
+#include "Sockets/Server.h"
+#include "Sockets/Client.h"
 
 class SafeExit {
     bool *exit;

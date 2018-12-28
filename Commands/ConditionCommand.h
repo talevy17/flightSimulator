@@ -6,9 +6,9 @@
 #define FLIGHTSIMULATOR_CONDITIONCOMMAND_H
 
 #include "Command.h"
-#include "Expression.h"
+#include "Expressions/Expression.h"
 #include <map>
-#include "FlightDataVariables.h"
+#include "Data/FlightDataVariables.h"
 
 /**
  * super class for the conditional type commands (e.g while and if)

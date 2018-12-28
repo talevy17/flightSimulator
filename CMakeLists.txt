@@ -7,26 +7,26 @@ set(CMAKE_CXX_FLAGS -pthread)
 include_directories(.)
 
 add_executable(flightSimulator
-        BinaryExpression.cpp
-        BinaryExpression.h
-        Command.h
-        Div.cpp
-        Div.h
-        Expression.h
-        FlightController.cpp
-        FlightController.h
-        Lexer.cpp
-        Lexer.h
+        Expressions/BinaryExpression.cpp
+        Expressions/BinaryExpression.h
+        Commands/Command.h
+        Expressions/Div.cpp
+        Expressions/Div.h
+        Expressions/Expression.h
+        Interpreter/FlightController.cpp
+        Interpreter/FlightController.h
+        Interpreter/Lexer.cpp
+        Interpreter/Lexer.h
         main.cpp
-        Minus.cpp
-        Minus.h
-        Mult.cpp
-        Mult.h
-        Number.cpp
-        Number.h
-        OpenDataServer.cpp
-        OpenDataServer.h
-        Plus.cpp
-        Plus.h
-        ShuntingYard.cpp
-        ShuntingYard.h FlightController.h Lexer.h Bigger.cpp Bigger.h Smaller.cpp Smaller.h BiggerEqual.cpp BiggerEqual.h SmallerEqual.cpp SmallerEqual.h Var.cpp Var.h FlightDataVariables.cpp FlightDataVariables.h VarCommand.cpp VarCommand.h ConditionCommand.cpp ConditionCommand.h IfCommand.cpp IfCommand.h NotEqual.cpp NotEqual.h Equal.cpp Equal.h WhileCommand.cpp WhileCommand.h PrintCommand.cpp PrintCommand.h CommandExpression.cpp CommandExpression.h Server.cpp Server.h ConnectCommand.cpp ConnectCommand.h SafeExit.cpp SafeExit.h Client.cpp Client.h SleepCommand.cpp SleepCommand.h)
+        Expressions/Minus.cpp
+        Expressions/Minus.h
+        Expressions/Mult.cpp
+        Expressions/Mult.h
+        Expressions/Number.cpp
+        Expressions/Number.h
+        Commands/OpenDataServer.cpp
+        Commands/OpenDataServer.h
+        Expressions/Plus.cpp
+        Expressions/Plus.h
+        Interpreter/ShuntingYard.cpp
+        Interpreter/ShuntingYard.h Interpreter/FlightController.h Interpreter/Lexer.h Expressions/Bigger.cpp Expressions/Bigger.h Expressions/Smaller.cpp Expressions/Smaller.h Expressions/BiggerEqual.cpp Expressions/BiggerEqual.h Expressions/SmallerEqual.cpp Expressions/SmallerEqual.h Expressions/Var.cpp Expressions/Var.h Data/FlightDataVariables.cpp Data/FlightDataVariables.h Commands/VarCommand.cpp Commands/VarCommand.h Commands/ConditionCommand.cpp Commands/ConditionCommand.h Commands/IfCommand.cpp Commands/IfCommand.h Expressions/NotEqual.cpp Expressions/NotEqual.h Expressions/Equal.cpp Expressions/Equal.h Commands/WhileCommand.cpp Commands/WhileCommand.h Commands/PrintCommand.cpp Commands/PrintCommand.h Expressions/CommandExpression.cpp Expressions/CommandExpression.h Sockets/Server.cpp Sockets/Server.h Commands/ConnectCommand.cpp Commands/ConnectCommand.h Commands/SafeExit.cpp Commands/SafeExit.h Sockets/Client.cpp Sockets/Client.h Commands/SleepCommand.cpp Commands/SleepCommand.h)

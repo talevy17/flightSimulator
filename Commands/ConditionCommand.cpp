@@ -1,6 +1,6 @@
 
 #include "ConditionCommand.h"
-#include "ShuntingYard.h"
+#include "Interpreter/ShuntingYard.h"
 
 /**
 * parse the condition of the block.

@@ -3,7 +3,7 @@
 //
 
 #include "VarCommand.h"
-#include "ShuntingYard.h"
+#include "Interpreter/ShuntingYard.h"
 
 /**
 * CTOR, receives access to the data maps.

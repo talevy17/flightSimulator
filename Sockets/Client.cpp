@@ -8,7 +8,7 @@
 #include <errno.h>
 #include <arpa/inet.h>
 #include <netdb.h>
-#include "FlightDataVariables.h"
+#include "Data/FlightDataVariables.h"
 
 #define BUFFER 256
 

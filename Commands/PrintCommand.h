@@ -3,8 +3,8 @@
 #define FLIGHTSIMULATOR_PRINTCOMMAND_H
 
 #include "Command.h"
-#include "Var.h"
-#include "FlightDataVariables.h"
+#include "Expressions/Var.h"
+#include "Data/FlightDataVariables.h"
 #include <map>
 
 /**

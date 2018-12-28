@@ -2,9 +2,9 @@
 #define FLIGHTSIMULATOR_CONNECTCOMMAND_H
 
 #include "Command.h"
-#include "FlightDataVariables.h"
-#include "Client.h"
-#include "ShuntingYard.h"
+#include "Data/FlightDataVariables.h"
+#include "Sockets/Client.h"
+#include "Interpreter/ShuntingYard.h"
 
 class ConnectCommand : public Command {
     FlightDataVariables *data;

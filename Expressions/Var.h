@@ -5,7 +5,7 @@
 
 #include <string>
 #include "Expression.h"
-#include "Client.h"
+#include "Sockets/Client.h"
 
 /**
  * A single variable, a node in the expression design pattern.

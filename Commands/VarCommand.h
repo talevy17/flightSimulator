@@ -6,7 +6,8 @@
 #define FLIGHTSIMULATOR_VARCOMMAND_H
 
 #include "Command.h"
-#include "FlightDataVariables.h"
+#include "Data/FlightDataVariables.h"
+#include "Sockets/Client.h"
 
 class VarCommand : public Command {
     FlightDataVariables *data;

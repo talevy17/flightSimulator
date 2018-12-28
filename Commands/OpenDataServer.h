@@ -2,7 +2,7 @@
 #define FLIGHTSTIMULATOR_OPENDATASERVER_H
 
 #include "Command.h"
-#include "Server.h"
+#include "Sockets/Server.h"
 #include <thread>
 #include <iostream>
 #include <string>
