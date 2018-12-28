@@ -13,6 +13,11 @@
 #define BUFFER 256
 
 /**
+* CTOR, initializes the run boolean.
+*/
+Client::Client() {this->isRunning = false;}
+
+/**
  * open client connect to server
  * @param ip
  * @param port
@@ -52,6 +57,7 @@ void Client::openClient(string ip, double port) {
         cout << "connected" <<endl;
     }
     this->server_sock_fd = sock_fd;
+    this->isRunning = true;
 }
 
 /**
@@ -71,8 +77,16 @@ void Client::send(string path, double newVal) {
 }
 
 /**
+ * close the connection if it was open
+ */
+void Client::closeClient() {
+    if (this->isRunning) {
+        close(this->server_sock_fd);
+    }
+    this->isRunning = false;
+}
+
+/**
  * destructor
  */
-Client::~Client() {
-    close(this->server_sock_fd);
-}
+Client::~Client() {}

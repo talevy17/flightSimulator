@@ -37,7 +37,7 @@ void FlightController::initializeCommandMap() {
     this->commandMap.insert(pair<string,Command*>("sleep",
             new SleepCommand(&this->flightDataVariables)));
     this->commandMap.insert(pair<string,Command*>("exit",
-            new SafeExit(this->shouldStop)));
+            new SafeExit(this->shouldStop, this->server, this->client, &this->commandMap)));
 
 }
 

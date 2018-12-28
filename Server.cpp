@@ -8,7 +8,7 @@
  * @param m
  * @param varsData
  */
-Server::Server(mutex &m, FlightDataVariables &varsData) : _mutex(m), data(varsData) {}
+Server::Server(mutex &m, FlightDataVariables &varsData) : _mutex(m), data(varsData) {this->isRunning = false;}
 
 /**
 * opens the socket for reading from the simulator's data stream.
@@ -98,6 +98,10 @@ string Server::socketReader() {
 * stops inner thread's loop.
 */
 void Server::closeServer() {
+    if (this->isRunning) {
+        close(this->sockfd);
+        close(this->newsockfd);
+    }
     this->isRunning = false;
 }
 
@@ -105,6 +109,4 @@ void Server::closeServer() {
 * DTOR, closes connections.
 */
 Server::~Server() {
-    close(this->sockfd);
-    close(this->newsockfd);
 }

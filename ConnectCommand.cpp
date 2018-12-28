@@ -12,6 +12,7 @@ void ConnectCommand::execute(vector<string>::iterator &it) {
     it++;
     Expression *port = s(++it);
     double dport = port->calculate();
+    delete (port);
     this->client->openClient(ip, dport);
     it++;
 }
