@@ -12,8 +12,13 @@
 
 #define BUFFER 256
 
-
+/**
+ * open client connect to server
+ * @param ip
+ * @param port
+ */
 void Client::openClient(string ip, double port) {
+    //wait for the simulator
     cout << "please enter char when the simulator is open"<< endl;
     bool stop = false;
     while (!stop){
@@ -21,7 +26,7 @@ void Client::openClient(string ip, double port) {
         cin >> c;
         stop = true;
     }
-
+    //connect to server
     struct sockaddr_in serv_addr;
     int sock_fd;
     if ((sock_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -49,6 +54,12 @@ void Client::openClient(string ip, double port) {
     this->server_sock_fd = sock_fd;
 }
 
+/**
+ * the function gets address and value and update the exist val
+ * in this address by connecting the socket
+ * @param path  - address
+ * @param newVal - to update
+ */
 void Client::send(string path, double newVal) {
     char *conversion = new char[BUFFER];
     bzero(conversion,BUFFER);
@@ -59,6 +70,9 @@ void Client::send(string path, double newVal) {
     delete[] conversion;
 }
 
+/**
+ * destructor
+ */
 Client::~Client() {
     close(this->server_sock_fd);
 }

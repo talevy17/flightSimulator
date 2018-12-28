@@ -5,9 +5,9 @@
 #include "Command.h"
 
 class SafeExit : public Command {
-    bool exit;
+    bool *exit;
 public:
-    SafeExit(bool &exit);
+    SafeExit(bool *exit);
     void execute(vector<string>:: iterator& it);
 };
 

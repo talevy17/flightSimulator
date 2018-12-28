@@ -8,7 +8,8 @@ typedef vector<string> :: iterator vecitr;
  * constructor - gets file or command line, check if its file
  */
 
-FlightController::FlightController() {
+FlightController::FlightController(bool *stop) {
+    this->shouldStop = stop;
     this->flightDataVariables.flightDataInit();
     initializeCommandMap();
 }
@@ -35,6 +36,9 @@ void FlightController::initializeCommandMap() {
             new VarCommand(&this->flightDataVariables,this->client,m)));
     this->commandMap.insert(pair<string,Command*>("sleep",
             new SleepCommand(&this->flightDataVariables)));
+    this->commandMap.insert(pair<string,Command*>("exit",
+            new SafeExit(this->shouldStop)));
+
 }
 
 
@@ -105,12 +109,15 @@ void FlightController::parser(vector<string> &commandLine) {
         //check if the current index in the commandLine is command
         Command *command;
         try {
+            // we want any command to be expression -
             command = commandMap.at(*commandIt);
-            command->execute(commandIt);
+            CommandExpression c(command, commandIt);
+            c.calculate();
         } catch (const exception& er) {
             try {
                 flightDataVariables.getVar(*commandIt);
-                commandMap.at("var")->execute(commandIt);
+                CommandExpression v (commandMap.at("var"),commandIt);
+                v.calculate();
             }
             catch (const char *exception) {
                 throw "error, undefined command"; }

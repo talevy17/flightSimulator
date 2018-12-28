@@ -16,6 +16,8 @@
 #include "PrintCommand.h"
 #include "ConnectCommand.h"
 #include "SleepCommand.h"
+#include "SafeExit.h"
+#include "CommandExpression.h"
 
 using namespace std;
 
@@ -24,9 +26,10 @@ class FlightController {
     FlightDataVariables flightDataVariables;
     Server* server;
     Client* client;
+    bool *shouldStop;
 
 public:
-    FlightController();
+    FlightController(bool *stop);
 
     void controller(string input, bool isFile);
 
