@@ -4,12 +4,17 @@
 #define BUF 2000
 
 /**
- *
+ * CTOR, initialized the data table and mutex.
  * @param m
  * @param varsData
  */
 Server::Server(mutex &m, FlightDataVariables &varsData) : _mutex(m), data(varsData) {}
 
+/**
+* opens the socket for reading from the simulator's data stream.
+* @param port
+* @param hz
+*/
 void Server::openServer(int port, int hz) {
     this->port = port;
     this->hz = hz;
@@ -50,10 +55,17 @@ void Server::openServer(int port, int hz) {
     }
 }
 
+/**
+ * splits the data from the stream into a vector of values.
+ * @param buff
+ * @return
+ */
 vector<double> xmlDataSplitter(string buff) {
+    //init a data vector<double> for the data.
     vector<double> info;
     size_t pos = 0;
     string delimiter = ",";
+    //while there are still delimiters.
     while ((pos = buff.find(delimiter)) != string::npos) {
         info.push_back(stod(buff.substr(0, pos)));
         buff.erase(0, pos + delimiter.length());
@@ -62,6 +74,10 @@ vector<double> xmlDataSplitter(string buff) {
     return info;
 }
 
+/**
+* reads a stream from the socket and updates the flight data map.
+* @return
+*/
 string Server::socketReader() {
     ssize_t valread;
     this->isRunning = true;
@@ -78,10 +94,16 @@ string Server::socketReader() {
     return "exit";
 }
 
+/**
+* stops inner thread's loop.
+*/
 void Server::closeServer() {
     this->isRunning = false;
 }
 
+/**
+* DTOR, closes connections.
+*/
 Server::~Server() {
     close(this->sockfd);
     close(this->newsockfd);
