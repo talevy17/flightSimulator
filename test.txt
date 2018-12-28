@@ -11,7 +11,7 @@ var brakeparking = bind "/sim/model/c172p/brake-parking"
 var primer = bind "/controls/engines/engine/primer"
 var starter = bind "/controls/switches/starter"
 var autostart = bind "/engines/active-engine/auto-start"
-var brake = bind "/controls/flight/speedbrake"
+var breaks = bind "/controls/flight/speedbrake"
 var heading = bind "/instrumentation/heading-indicator/offset-deg"
 var airspeed = bind "/instrumentation/airspeed-indicator/indicated-speed-kt"
 var roll = bind "/instrumentation/attitude-indicator/indicated-roll-deg"
@@ -60,7 +60,4 @@ print "ele" elevator
 print "alt = " alt
 sleep 250
 }
-
-
-
-
+exit
