@@ -36,7 +36,6 @@ void OpenDataServer::execute(vector<string>::iterator &it) {
     this->server.openServer((int) port, (int) time);
     thread ser(socketRead, &this->server);
     ser.detach();
-    cout << "wait for connection, please wait" << endl;
     int milisec = 60000;
     this_thread::sleep_for(chrono::milliseconds(milisec));
 }

@@ -47,12 +47,8 @@ void Server::openServer(int port, int hz) {
     }
 
     //Accept and incoming connection
-    puts("Waiting for incoming connections...");
     socklen_t addrlen = sizeof(sockaddr_in);
     newsockfd = accept(sockfd, (struct sockaddr *) &client, &addrlen);
-    if (newsockfd < 0) {
-        cout << "Connection accepted, starting listener thread" << endl;
-    }
     char buf;
     read(newsockfd,&buf,1);
 }

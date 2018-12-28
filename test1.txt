@@ -22,9 +22,7 @@ var elevator = bind "/controls/flight/elevator"
 var alt = bind "/instrumentation/altimeter/indicated-altitude-ft"
 var rpm = bind "/engines/engine/rpm"
 
-print "waiting 2 minutes for gui"
 sleep 12000
-print "let's start"
 warp = 32000
 sleep 1000
 magnetos = 3
@@ -37,12 +35,10 @@ brakeparking = 0
 primer = 3
 starter = 1
 autostart = 1
-print "engine is warming..."
 while rpm <= 750 {
 sleep 1000
 }
 sleep 5000
-print "let's fly"
 var h0 = heading
 brake = 0
 throttle = 1
@@ -50,6 +46,5 @@ while alt < 0 {
 rudder = (h0 - heading)/80
 aileron = -roll / 70
 elevator = pitch / 50
-print "alt = " alt
 sleep 250
 }

@@ -45,8 +45,6 @@ void Client::openClient(string ip, double port) {
     if (connect(sock_fd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
         printf("\nConnection Failed \n");
         exit(0);
-    }else {
-        cout << "connected" <<endl;
     }
     this->server_sock_fd = sock_fd;
     this->isRunning = true;

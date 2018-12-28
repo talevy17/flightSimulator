@@ -89,7 +89,6 @@ void FlightController::controller(string input, bool isFile) {
             parser(commandLine);
             commandLine.clear();
         }
-        cout << "flight is over, please wait till done" << endl;
         SafeExit e(this->shouldStop, this->server, this->client, &this->commandMap);
         e.execute();
     } else {
