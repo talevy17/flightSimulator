@@ -43,6 +43,8 @@ void Client::openClient(string ip, double port) {
     if (connect(sock_fd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
         printf("\nConnection Failed \n");
         exit(0);
+    }else {
+        cout << "connected" <<endl;
     }
     this->server_sock_fd = sock_fd;
 }
@@ -52,8 +54,9 @@ void Client::send(string path, double newVal) {
     bzero(conversion,BUFFER);
     sprintf(conversion, "set %s %s \r\n", path.c_str(),
             std::to_string(newVal).c_str());
-    ssize_t x = ::send(this->server_sock_fd, conversion, strlen(conversion),0);
-    cout << x << endl;
+    ssize_t x = ::send(this->server_sock_fd,
+           conversion , strlen(conversion),0);
+    delete[] conversion;
 }
 
 Client::~Client() {

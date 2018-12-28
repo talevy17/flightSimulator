@@ -30,16 +30,11 @@ void WhileCommand::execute(vector<string>::iterator &it) {
     } catch (const char *e) {
         throw e;
     }
-    //check the condition.
-    if (condition->calculate()) {
-        //try parsing the commands.
-        try {
-            this->parseCommands(it, cmds, args);
-        } catch (const char *e) {
-            throw e;
-        }
-    } else {
-        return;
+    //try parsing the commands.
+    try {
+        this->parseCommands(it, cmds, args);
+    } catch (const char *e) {
+        throw e;
     }
     while (condition->calculate()) {
         //try to execute all of the commands in the block.

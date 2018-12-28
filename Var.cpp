@@ -7,8 +7,8 @@
 * @param varName string name
 * @param val double value
 */
-Var::Var(string varName, double val, Client &client, mutex &m)
-:_mutex(m){
+Var::Var(string varName, double val, Client *client, mutex &m)
+        : _mutex(m) {
     this->value = val;
     this->name = varName;
     this->client = client;
@@ -18,8 +18,8 @@ Var::Var(string varName, double val, Client &client, mutex &m)
 * CTOR.
 * @param varName string name
 */
-Var::Var(string varName, Client &client, mutex &m)
-:_mutex(m) {
+Var::Var(string varName, Client *client, mutex &m)
+        : _mutex(m) {
     this->name = varName;
     this->client = client;
 }
@@ -28,7 +28,7 @@ Var::Var(string varName, Client &client, mutex &m)
 * name getter.
 * @return string name.
 */
-string Var::getName() const {return this->name;}
+string Var::getName() const { return this->name; }
 
 /**
 * assign a value to the Var, shall be used by the assign command at run-time.
@@ -37,12 +37,11 @@ string Var::getName() const {return this->name;}
 void Var::assignValue(double val) {
     this->value = val;
     //update value.
-    if (!this -> bindAddress.empty()){
-        unique_lock<mutex> ul(this->_mutex);
-        this->client.send(this->bindAddress, val);
-        ul.unlock();
+    unique_lock<mutex> ul(this->_mutex);
+    if (!this->bindAddress.empty()) {
+        this->client->send(this->bindAddress, val);
     }
-
+    ul.unlock();
 }
 
 /**
@@ -50,18 +49,16 @@ void Var::assignValue(double val) {
 * @param ex
 */
 void Var::assignValue(Expression *ex) {
-    //unique_lock<mutex> ul(this->_mutex);
     double d = ex->calculate();
     assignValue(d);
-    //ul.unlock();
-    delete(ex);
+    delete (ex);
 }
 
 /**
 * bind address getter.
 * @return
 */
-string Var::getBindAddress() const {return this->bindAddress;}
+string Var::getBindAddress() const { return this->bindAddress; }
 
 /**
 * sets the binding address.
@@ -85,4 +82,4 @@ void Var::assignValueFromBindAddress(double val) {
 * calculates the value of the node.
 * @return double value.
 */
-double Var::calculate() const { return this->value;}
+double Var::calculate() const { return this->value; }
