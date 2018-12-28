@@ -36,9 +36,6 @@ void FlightController::initializeCommandMap() {
             new VarCommand(&this->flightDataVariables,this->client,m)));
     this->commandMap.insert(pair<string,Command*>("sleep",
             new SleepCommand(&this->flightDataVariables)));
-    this->commandMap.insert(pair<string,Command*>("exit",
-            new SafeExit(this->shouldStop, this->server, this->client, &this->commandMap)));
-
 }
 
 
@@ -54,10 +51,11 @@ void readCondition(ifstream &file, vector<string> &commandLine, Lexer lexer) {
     string line;
     while (numOfConditions>0) {
         getline(file, line);
-        if (line==""){
+        // if line == ""
+        if (line.empty()){
             getline(file, line);
             continue;
-        } else if (line.find('{')!=NOT_FOUND){
+        } else if (line.find('{') != NOT_FOUND){
             numOfConditions ++;
         } else if (line.find('}') != NOT_FOUND) { numOfConditions --; }
         lexer.splitLine(line, commandLine);
@@ -91,6 +89,9 @@ void FlightController::controller(string input, bool isFile) {
             parser(commandLine);
             commandLine.clear();
         }
+        cout << "flight is over, please wait till done" << endl;
+        SafeExit e(this->shouldStop, this->server, this->client, &this->commandMap);
+        e.execute();
     } else {
         lexer.splitLine(input, commandLine);
         parser(commandLine);
@@ -122,5 +123,11 @@ void FlightController::parser(vector<string> &commandLine) {
             catch (const char *exception) {
                 throw "error, undefined command"; }
         }
+    }
+}
+
+FlightController :: ~FlightController() {
+    for (auto it = this->commandMap.begin(); it != this->commandMap.end(); ++it) {
+        delete (it->second);
     }
 }

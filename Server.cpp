@@ -53,6 +53,8 @@ void Server::openServer(int port, int hz) {
     if (newsockfd < 0) {
         cout << "Connection accepted, starting listener thread" << endl;
     }
+    char buf;
+    read(newsockfd,&buf,1);
 }
 
 /**

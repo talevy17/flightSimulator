@@ -61,7 +61,7 @@ stritr findNum(stritr beg, stritr end) {
  * @return stritr - the end of the address.
  */
 stritr findAddress(stritr beg, stritr end, char toFind) {
-    find_if(beg + 1, end, [toFind](char c) { return c == toFind; }) + 1;
+    return find_if(beg + 1, end, [toFind](char c) { return c == toFind; }) + 1;
 }
 
 /**
@@ -90,19 +90,6 @@ stritr skipSpaces(stritr beg, stritr end) {
     });
 }
 
-
-//stritr findEndFloat (stritr beg, stritr end){
-//    bool found = false;
-//    if (!isDigit(*beg)) { return beg;}
-//    stritr j,k;
-//    while (!found){
-//        j = findAddress(beg,end,' ');
-//        k = findAddress(beg,end,',');
-//        if(*j==*end){ return k-1;}
-//        return j-1;
-//    }
-//}
-
 /**
  * the function gets command and vector of strings,
  * iter the line and split each relevant parameter
@@ -121,9 +108,6 @@ void Lexer::splitLine(string line, vector<string> &commandLine) {
         //then check the current note
         if (isDigit(*itr)) {
             curr = findNum(itr, enditr);
-//            if ((itr < enditr+1) && (*curr == '.')){
-//                curr = findEndFloat(itr+1,enditr);
-//            }
             if (var) { f = true; }
             var = true;
         } else if (isLetter(*itr)) {

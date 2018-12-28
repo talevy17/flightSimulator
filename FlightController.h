@@ -29,7 +29,7 @@ class FlightController {
     bool *shouldStop;
 
 public:
-    FlightController(bool *stop);
+    explicit FlightController(bool *stop);
 
     void controller(string input, bool isFile);
 
@@ -37,9 +37,7 @@ public:
 
     void parser(vector<string> &commandLine);
 
-    ~FlightController() {
-
-    }
+    ~FlightController();
 };
 
 

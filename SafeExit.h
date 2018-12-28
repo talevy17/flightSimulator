@@ -5,7 +5,7 @@
 #include "Server.h"
 #include "Client.h"
 
-class SafeExit : public Command {
+class SafeExit {
     bool *exit;
     Server* server;
     Client* client;
@@ -23,7 +23,7 @@ public:
     * frees all allocated memory and closes connections.
     * @param it
     */
-    void execute(vector<string>:: iterator& it);
+    void execute();
 };
 
 

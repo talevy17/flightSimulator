@@ -23,14 +23,6 @@ Client::Client() {this->isRunning = false;}
  * @param port
  */
 void Client::openClient(string ip, double port) {
-    //wait for the simulator
-    cout << "please enter char when the simulator is open"<< endl;
-    bool stop = false;
-    while (!stop){
-        char c;
-        cin >> c;
-        stop = true;
-    }
     //connect to server
     struct sockaddr_in serv_addr;
     int sock_fd;
@@ -71,8 +63,7 @@ void Client::send(string path, double newVal) {
     bzero(conversion,BUFFER);
     sprintf(conversion, "set %s %s \r\n", path.c_str(),
             std::to_string(newVal).c_str());
-    ssize_t x = ::send(this->server_sock_fd,
-           conversion , strlen(conversion),0);
+    ::send(this->server_sock_fd,conversion , strlen(conversion),0);
     delete[] conversion;
 }
 
